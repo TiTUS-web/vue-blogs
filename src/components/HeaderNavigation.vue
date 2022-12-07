@@ -2,7 +2,13 @@
     <header class="header">
         <nav class="nav header__nav">
             <div class="branding nav__branding">
-                <router-link class="link branding__link" to="#">VueBlogs</router-link>
+                <router-link 
+                  class="link branding__link" 
+                  to="#"  
+                  :style="{color: '#000'}"
+                >
+                  VueBlogs
+                </router-link>
             </div>
             <div class="links nav__links">
                 <ul v-show="!bMobileMode" class="list links__list">

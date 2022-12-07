@@ -108,14 +108,14 @@
 
 .list-mobile-enter-active,
 .list-mobile-leave-active {
-    transition: all .5s ease;
-    transform: translateX(-350px);
+  transition: all 0.5s ease;
+  transform: translateX(-350px);
 }
 
 .list-mobile-enter-to {
-    transform: translateX(0);
+  transform: translateX(0);
 }
 
 .list-mobile-leave-to {
-    transform: translateX(-350px);
+  transform: translateX(-350px);
 }
