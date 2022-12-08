@@ -4,7 +4,6 @@
             <div class="branding nav__branding">
                 <router-link 
                     class="link branding__link" 
-                    :style="{color: '#fff'}"
                     to="#" 
                 >
                     VueBlogs

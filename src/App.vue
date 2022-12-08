@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import HeaderNavigation from '@/components/HeaderNavigation.vue';
-import FooterNavigation from '@/components/FooterNavigation.vue';
+import HeaderNavigation from '@/ui/HeaderNavigation.vue';
+import FooterNavigation from '@/ui/FooterNavigation.vue';
 
 import { defineComponent } from 'vue';
 
