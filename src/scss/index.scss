@@ -2,8 +2,11 @@
 @use "./mixins";
 @use "./variables";
 
+@use "./components/app";
+
 @use "./components/header";
 @use "./components/footer";
+@use "./components/post";
 
 body {
   background: #181818;

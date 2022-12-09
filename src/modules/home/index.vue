@@ -1,17 +1,17 @@
 <template>
     <div class="home">
-        <blog-post></blog-post>
+        <list-posts></list-posts>
     </div>
 </template>
 
 <script lang="ts">
-import BlogPost from '@/modules/home/components/BlogPost.vue';
+import ListPosts from '@/modules/home/components/ListPosts.vue';
 
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   components: {
-    BlogPost
+    ListPosts
   },
   setup() {
     return {
