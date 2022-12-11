@@ -4,9 +4,12 @@
 
 @use "./components/app";
 
+@use "./components/home";
+
 @use "./components/header";
 @use "./components/footer";
 @use "./components/post";
+@use "./components/new-post";
 
 body {
   background: #181818;

@@ -1,5 +1,6 @@
 <template>
-    <div class="post">
+<div class="list-posts">
+    <div class="post list-posts__post">
         <div class="content post__content">
             <p class="text post__text">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elementum volutpat orci turpis urna. Et vestibulum, posuere tortor lacinia sit. Sagittis porttitor orci auctor in at tincidunt arcu egestas. Fusce arcu sodales lacinia eu auctor nunc nam id. Diam sit sed volutpat massa. Egestas ornare vel volutpat.
@@ -11,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="post">
+    <div class="post list-posts__post">
         <img 
             class="img post__img" 
             src="@/assets/posts/post_img_1.jpg" 
@@ -49,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="post">
+    <div class="post list-posts__post">
         <img 
             class="img post__img" 
             src="@/assets/posts/post_img_2.jpg" 
@@ -87,6 +88,8 @@
             </div>
         </div>
     </div>
+</div>
+    
 </template>
 
 <script lang="ts">
