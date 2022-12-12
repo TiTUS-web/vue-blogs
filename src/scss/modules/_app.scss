@@ -1,0 +1,18 @@
+.app {
+  // .app__content
+
+  &__content {
+    max-width: 780px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin: 0 auto;
+    min-height: calc(90vh - 74px);
+    display: flex;
+  }
+}
+
+body {
+  background: #181818;
+}
+
+
