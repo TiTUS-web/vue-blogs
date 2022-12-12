@@ -1,7 +1,7 @@
 <template>
     <div class="new-post">
         <textarea 
-          class="input new-post__input" 
+          class="textarea new-post__textarea" 
           type="text" 
           placeholder="Напишите что-нибудь" 
           maxlength="400" 

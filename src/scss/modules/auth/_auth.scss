@@ -1,0 +1,20 @@
+@use "./components/login";
+@use "./components/register";
+
+.icon-hide {
+    margin-right: 10px;
+  }
+  
+  .icon-hide--active {
+    filter: contrast(100);
+  }
+  
+  @each $name in "email" "password" "firstname" "lastname" "repeat" {
+    .#{$name}__block {
+      background-color: #f2f7f6;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+  }

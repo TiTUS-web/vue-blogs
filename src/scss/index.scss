@@ -1,16 +1,20 @@
+// UTILS
 @use "./reset";
 @use "./mixins";
 @use "./variables";
+// /UTILS
 
-@use "./components/app";
+@use "./modules/app";
 
-@use "./components/home";
+// UI
+@use "./modules/ui/header";
+@use "./modules/ui/footer";
+// /UI
 
-@use "./components/header";
-@use "./components/footer";
-@use "./components/post";
-@use "./components/new-post";
+// MODULES
+@use "./modules/auth/auth";
+@use "./modules/home/home";
+// /MODULES
 
-body {
-  background: #181818;
-}
+
+
