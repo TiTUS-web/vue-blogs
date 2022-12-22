@@ -93,7 +93,10 @@ export default defineComponent({
     }
 
     function login() {
-      sErrorMessageLogin.value = '';
+      if (!sEmail.value || !sPassword.value) {
+        sErrorMessageLogin.value = 'Make sure your email and password are correct';
+      }
+
       firebaseSignIn();
     }
 
