@@ -102,11 +102,13 @@ import 'firebase/auth';
 import db from '@/firebase/firebaseinit';
 import CreateAccount from '@/classes/CreateAccount';
 
+import {useRouter} from 'vue-router';
 import { defineComponent, ref, Ref } from 'vue';
 
 export default defineComponent({
   name: 'Register',
   setup() {
+    const $router = useRouter();
     const verification: CreateAccount = new CreateAccount();
 
     const sFirstName: Ref<string | null> = ref(null);
@@ -221,7 +223,7 @@ export default defineComponent({
 
       firebaseCreateUser();
       
-      this.$router.push('/home/');
+      $router.push('auth/login/');
     }
 
     return {
