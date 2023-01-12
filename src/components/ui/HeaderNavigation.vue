@@ -11,10 +11,10 @@
             </div>
             <div class="links nav__links">
                 <ul v-show="!bMobileMode" class="list links__list">
-                    <router-link class="link list__link" to="#">Home</router-link>
+                    <router-link class="link list__link" to="/">Home</router-link>
                     <router-link class="link list__link" to="#">Blogs</router-link>
                     <router-link class="link list__link" to="#">Create Post</router-link>
-                    <router-link class="link list__link" to="#">Login / Register</router-link>
+                    <router-link class="link list__link" to="/auth/login">Login / Register</router-link>
                 </ul>
             </div>
         </nav>
@@ -26,10 +26,10 @@
 
         <transition name="list-mobile">
             <ul v-show="bMobileToggle" class="list-mobile links__list-mobile">
-                <router-link class="link list__link list__link--mobile" to="#">Home</router-link>
+                <router-link class="link list__link list__link--mobile" to="/">Home</router-link>
                 <router-link class="link list__link list__link--mobile" to="#">Blogs</router-link>
                 <router-link class="link list__link list__link--mobile" to="#">Create Post</router-link>
-                <router-link class="link list__link list__link--mobile" to="#">Login/Register</router-link>
+                <router-link class="link list__link list__link--mobile" to="/auth/login">Login/Register</router-link>
             </ul>
         </transition>
     </header>

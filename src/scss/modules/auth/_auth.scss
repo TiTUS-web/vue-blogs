@@ -11,6 +11,17 @@
   filter: contrast(100);
 }
 
+@each $name in "login" "register" "recover" {
+  .#{$name} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    align-self: center;
+  }
+}
+
 @each $name in "email" "password" "firstname" "lastname" "repeat" "username" {
   .#{$name}__block {
     background-color: #f2f7f6;

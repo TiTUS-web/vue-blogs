@@ -1,13 +1,4 @@
 .login {
-  & {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    align-self: center;
-  }
-
   // .login__title
 
   &__title {
@@ -15,6 +6,20 @@
     font-size: 32px;
     color: #fff;
     margin-bottom: 40px;
+  }
+
+  &__error {
+    text-decoration: none;
+    color: #D44333;
+    font-size: 14px;
+    margin: 16px 0 32px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.5s ease;
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
   }
 
   // .login__text

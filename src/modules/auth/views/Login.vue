@@ -32,9 +32,13 @@
             </div>
         </div>
 
-        <p v-if="sErrorMessageLogin" class="error register__error">{{ sErrorMessageLogin }}</p>
+        <p v-if="sErrorMessageLogin" class="error login__error">{{ sErrorMessageLogin }}</p>
         
-        <p class="text login__text">Forgot your password?</p>
+        <p class="text login__text">
+          <router-link to="/auth/recover" class="link login__text--link">
+            Forgot your password?
+          </router-link>
+        </p>
         <p class="text login__text">Don't have an account? 
           <router-link to="/auth/register" class="link login__text--link">
             Register
@@ -84,7 +88,7 @@ export default defineComponent({
         )
         .then(() => {
           sErrorMessageLogin.value = '';
-          $router.push('/home/');
+          $router.push('/');
         })
         .catch((err) => {
           sErrorMessageLogin.value = 'Make sure your email and password are correct';

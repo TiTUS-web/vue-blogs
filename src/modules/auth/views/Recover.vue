@@ -60,7 +60,7 @@ export default defineComponent({
 
     function recover() {
       if (!sEmail.value) {
-        sErrorMessageRecover.value = 'Make sure your email and password are correct';
+        sErrorMessageRecover.value = 'Make sure your email are correct';
       }
 
       firebaseRecover();

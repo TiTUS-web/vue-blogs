@@ -1,17 +1,14 @@
 <template>
   <header-navigation />
-  <div class="content app__content">
-    <!-- <home /> -->
-    <auth />
-  </div>
+  <main class="content app__content">
+      <router-view />
+  </main>
   <footer-navigation />
 </template>
 
 <script lang="ts">
-import HeaderNavigation from '@/ui/HeaderNavigation.vue';
-import FooterNavigation from '@/ui/FooterNavigation.vue';
-// import Home from '@/modules/home/index.vue';
-import Auth from '@/modules/auth/index.vue';
+import HeaderNavigation from '@/components/ui/HeaderNavigation.vue';
+import FooterNavigation from '@/components/ui/FooterNavigation.vue';
 
 import { defineComponent } from 'vue';
 
@@ -20,8 +17,6 @@ export default defineComponent({
   components: {
     HeaderNavigation,
     FooterNavigation,
-    // Home,
-    Auth,
   },
 });
 </script>

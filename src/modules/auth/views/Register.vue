@@ -223,7 +223,7 @@ export default defineComponent({
 
       firebaseCreateUser();
       
-      $router.push('auth/login/');
+      $router.replace('login/');
     }
 
     return {
