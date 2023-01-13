@@ -10,13 +10,28 @@
 import HeaderNavigation from '@/components/ui/HeaderNavigation.vue';
 import FooterNavigation from '@/components/ui/FooterNavigation.vue';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
+import { useStore } from 'vuex';
 import { defineComponent } from 'vue';
+import { ActionTypes, MutationTypes } from '@/types/auth';
 
 export default defineComponent({
   name: 'VueBlogs',
   components: {
     HeaderNavigation,
     FooterNavigation,
+  },
+  setup() {
+    const store = useStore();
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        store.commit(MutationTypes.updateUser, user);
+        store.dispatch(ActionTypes.getCurrentUser);
+      }
+    });
   },
 });
 </script>

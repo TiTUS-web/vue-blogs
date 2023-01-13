@@ -207,7 +207,7 @@ export default defineComponent({
       const createUser = firebaseAuth.createUserWithEmailAndPassword(sEmail.value as string, sPassword.value as string);
       const result = await createUser;
       const dataBase = db.collection('users').doc(result.user?.uid);
-      console.log(createUser);
+      
       await dataBase.set({
         firstName: sFirstName.value,
         lastName: sLastName.value,
