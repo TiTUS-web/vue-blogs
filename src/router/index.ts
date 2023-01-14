@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 import AuthRoutes from '@/router/modules/auth';
 import HomeRoutes from '@/router/modules/home';
@@ -6,7 +6,7 @@ import HomeRoutes from '@/router/modules/home';
 const routes: Array<RouteRecordRaw> = [...AuthRoutes, ...HomeRoutes];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 });
 
