@@ -4,18 +4,28 @@
             <div class="branding nav__branding">
                 <router-link 
                   class="link branding__link" 
-                  to="#"  
+                  to="/"  
                 >
                   VueBlogs
                 </router-link>
             </div>
             <div class="links nav__links">
-                <ul v-show="!bMobileMode" class="list links__list">
-                    <router-link class="link list__link" to="/">Home</router-link>
-                    <router-link class="link list__link" to="#">Blogs</router-link>
-                    <router-link class="link list__link" to="#">Create Post</router-link>
-                    <router-link class="link list__link" to="/auth/login">Login / Register</router-link>
-                </ul>
+                <div v-show="!bMobileMode" class="list links__list">
+                    <template v-if="oUser && oProfile.initials">
+                      <router-link class="link list__link" to="/settings">Settings</router-link>
+                      <router-link class="link list__link" to="#">Create Post</router-link>
+                      <div class="profile" @click="showProfileMenu">
+                        <span class="initials profile__initials">
+                          {{oProfile.initials}}
+                        </span>
+                        <ProfileMenu v-show="bShowProfileMenu"></ProfileMenu>
+                      </div>
+                    </template> 
+
+                    <template v-else>
+                      <router-link class="link list__link" to="/auth/login">Login / Register</router-link>
+                    </template>
+                </div>
             </div>
         </nav>
 
@@ -25,25 +35,34 @@
         </svg>
 
         <transition name="list-mobile">
-            <ul v-show="bMobileToggle" class="list-mobile links__list-mobile">
+            <div v-show="bMobileToggle" class="list-mobile links__list-mobile">
                 <router-link class="link list__link list__link--mobile" to="/">Home</router-link>
                 <router-link class="link list__link list__link--mobile" to="#">Blogs</router-link>
                 <router-link class="link list__link list__link--mobile" to="#">Create Post</router-link>
                 <router-link class="link list__link list__link--mobile" to="/auth/login">Login/Register</router-link>
-            </ul>
+            </div>
         </transition>
     </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from 'vue';
+import ProfileMenu from '@/components/ui/ProfileMenu.vue';
+
+import { computed, defineComponent, ref, Ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'HeaderNavigation',
+  components: {
+    ProfileMenu,
+  },
   setup() {
+    const store = useStore();
+
     let bMobileMode: Ref<boolean | null> = ref(null);
     let bMobileToggle: Ref<boolean | null> = ref(null);
     let iWindowWidth: Ref<number | null> = ref(null);
+    let bShowProfileMenu: Ref<boolean> = ref(false);
 
     window.addEventListener('resize', checkScreen);
     checkScreen();
@@ -65,12 +84,23 @@ export default defineComponent({
       bMobileToggle.value = !bMobileToggle.value;
     }
 
+    function showProfileMenu() {
+      bShowProfileMenu.value = !bShowProfileMenu.value;
+    }
+
     return {
+      oUser: computed(() => store.state.auth.oUser),
+      oProfile: computed(() => store.state.auth.oProfile),
+
+      store,
+
       bMobileMode,
       bMobileToggle,
+      bShowProfileMenu,
         
       checkScreen,
       toggleMobileNavigation,
+      showProfileMenu,
     };
   },
 });

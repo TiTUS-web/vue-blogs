@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts">
-import HeaderNavigation from '@/components/ui/HeaderNavigation.vue';
-import FooterNavigation from '@/components/ui/FooterNavigation.vue';
+import HeaderNavigation from '@/components/HeaderNavigation.vue';
+import FooterNavigation from '@/components/FooterNavigation.vue';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
