@@ -12,9 +12,7 @@
 </template>
 
 <script lang="ts">
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
+import { ActionTypes } from '@/types/auth';
 import { defineComponent } from 'vue';
 import { useStore } from 'vuex';
 
@@ -23,13 +21,10 @@ export default defineComponent({
     const store = useStore();
     
     function signOut() {
-      firebase.auth().signOut();
-      window.location.reload();
-      window.location.replace('/auth/login');
+      store.dispatch(ActionTypes.signOut);
     }
 
     return {
-      store,
       signOut,
     };
   },
