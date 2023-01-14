@@ -45,24 +45,21 @@
           </router-link>
         </p>
 
-        <button @click.prevent="login" class="button login__button" type="submit">Sign In</button>
+        <button @click.prevent="login" :disabled="isLoginButtonLoading" class="button login__button" type="submit">Sign In</button>
     </form>
 </template>
 
 <script lang="ts">
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import {useRouter} from 'vue-router';
-import { defineComponent, ref, Ref } from 'vue';
+import { computed, defineComponent, ref, Ref } from 'vue';
+import { useStore } from 'vuex';
+import { ActionTypes } from '@/types/auth';
 
 export default defineComponent({
   name: 'Login',
   setup() {
-    const $router = useRouter();
+    const store = useStore();
     const sEmail: Ref<string | null> = ref(null);
     const sPassword: Ref<string | null> = ref(null);
-
-    let sErrorMessageLogin: Ref<string> = ref('');
 
     let isPasswordHide: Ref<boolean> = ref(true);
 
@@ -80,35 +77,21 @@ export default defineComponent({
       }
     }
 
-    function firebaseSignIn() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(
-              sEmail.value as string, sPassword.value as string
-        )
-        .then(() => {
-          sErrorMessageLogin.value = '';
-          $router.push('/');
-        })
-        .catch((err) => {
-          sErrorMessageLogin.value = 'Make sure your email and password are correct';
-          console.error(err);
-        });
-    }
-
     function login() {
-      if (!sEmail.value || !sPassword.value) {
-        sErrorMessageLogin.value = 'Make sure your email and password are correct';
-      }
+      const oCredentials = {
+        sEmail: sEmail.value,
+        sPassword: sPassword.value,
+      };
 
-      firebaseSignIn();
+      store.dispatch(ActionTypes.signIn, oCredentials);
     }
 
     return {
+      sErrorMessageLogin: computed(() => store.state.auth.sErrorMessageLogin),
+      isLoginButtonLoading: computed(() => store.state.auth.isLoginButtonLoading),
+
       sEmail,
       sPassword,
-
-      sErrorMessageLogin,
 
       isPasswordHide,
 
