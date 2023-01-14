@@ -25,6 +25,7 @@ export default defineComponent({
     function signOut() {
       firebase.auth().signOut();
       window.location.reload();
+      window.location.replace('/auth/login');
     }
 
     return {
