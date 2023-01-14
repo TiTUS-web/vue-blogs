@@ -17,20 +17,19 @@ enum MutationTypes {
     signOutSuccess = '[auth] signOutSuccess',
     signOutFailure = '[auth] signOutFailure',
 
-    getProfileStart = '[auth] getProfileStart',
-    getProfileSuccess = '[auth] getProfileSuccess',
-    getProfileFailure = '[auth] getProfileFailure',
+    getCurrentUserStart = '[auth] getProfileStart',
+    getCurrentUserSuccess = '[auth] getProfileSuccess',
+    getCurrentUserFailure = '[auth] getProfileFailure',
 
-    getProfileInitials = '[auth] getProfileInitials', 
+    getCurrentUserInitials = '[auth] getProfileInitials', 
 
-    updateUserStart = '[auth] updateUserStart', 
-    updateUserSuccess = '[auth] updateUserSuccess', 
-    updateUserFailure = '[auth] updateUserFailure', 
+    getUserStart = '[auth] getUserStart', 
+    getUserSuccess = '[auth] getUserSuccess', 
+    getUserFailure = '[auth] getUserFailure', 
 }
 
 enum ActionTypes {
-  getProfile ='[auth] getProfile',
-  updateUser = '[auth] updateUser',
+  getUser = '[auth] getUser',
   signIn = '[auth] signIn',
   recover = '[auth] recover',
   register = '[auth] register',

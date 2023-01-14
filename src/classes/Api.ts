@@ -5,10 +5,16 @@ import db from '@/firebase/firebaseinit';
 class Api {
   public signIn(sEmail: string, sPassword: string) {
     return new Promise<void>((resolve, reject) => {
+      if (!sEmail || !sPassword) {
+        reject();
+      }
+
       firebase
         .auth()
         .signInWithEmailAndPassword(sEmail, sPassword)
         .then(() => {
+          window.location.reload();
+          window.location.replace('/');
           resolve();
         })
         .catch((err) => {
@@ -64,11 +70,12 @@ class Api {
     });
   }
 
-  public updateUser() {
+  public getUser() {
     return new Promise((resolve, reject) => {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           resolve(user);
+
         } else {
           reject();
         }
@@ -78,14 +85,18 @@ class Api {
 
   public getCurrentUser() {
     return new Promise<void>((resolve, reject) => {
-      const dataBase = db.collection('users').doc(firebase.auth().currentUser!.uid);
-      dataBase.get()
-        .then((dbResults: any) => {
-          resolve(dbResults);
-        })
-        .catch((err) => {
-          reject(err);
-        });
+      const currentUser = firebase.auth().currentUser;
+
+      if (!currentUser) return;
+        
+      const dataBase = db.collection('users').doc(currentUser.uid);
+      const dbResults: any = dataBase.get();
+      
+      if (dbResults) {
+        resolve(dbResults);
+      } else {
+        reject();
+      }
     });
   }
 }

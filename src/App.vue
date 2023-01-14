@@ -23,7 +23,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    store.dispatch(ActionTypes.updateUser);
+    store.dispatch(ActionTypes.getUser);
   },
 });
 </script>

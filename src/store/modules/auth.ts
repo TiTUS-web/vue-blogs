@@ -30,7 +30,6 @@ const state: AuthState = {
     id: null,
     initials: '',
   },
-  
 };
 
 const mutations = {
@@ -38,13 +37,11 @@ const mutations = {
     state.isLoginButtonLoading = true;
     state.isLoggedIn = false;
     state.sErrorMessageLogin  = '';
-
   },
   [MutationTypes.signInSuccess](state: AuthState) {
     state.isLoginButtonLoading = false;
     state.isLoggedIn = true;
     state.sErrorMessageLogin  = '';
-
   },
   [MutationTypes.signInFailure](state: AuthState) {
     state.isLoginButtonLoading = false;
@@ -87,10 +84,10 @@ const mutations = {
     state.isLoggedIn = true;
   },
 
-  [MutationTypes.getProfileStart](state: AuthState) {
+  [MutationTypes.getCurrentUserStart](state: AuthState) {
     state.isProfileLoading = true;
   },
-  [MutationTypes.getProfileSuccess](state: AuthState, payload: any) {
+  [MutationTypes.getCurrentUserSuccess](state: AuthState, payload: any) {
     state.oProfile.id = payload.id;
     state.oProfile.email = payload.email;
     state.oProfile.firstName = payload.firstName;
@@ -98,7 +95,7 @@ const mutations = {
     state.oProfile.username = payload.username;
     state.isProfileLoading = false;
   },
-  [MutationTypes.getProfileFailure](state: AuthState) {
+  [MutationTypes.getCurrentUserFailure](state: AuthState) {
     state.oProfile.id = null;
     state.oProfile.email = '';
     state.oProfile.firstName = '';
@@ -107,17 +104,17 @@ const mutations = {
     state.isProfileLoading = false;
   },
 
-  [MutationTypes.updateUserStart](state: AuthState) {
+  [MutationTypes.getUserStart](state: AuthState) {
     state.oUser = {};
   },
-  [MutationTypes.updateUserSuccess](state: AuthState, payload: object) {
+  [MutationTypes.getUserSuccess](state: AuthState, payload: object) {
     state.oUser = payload;
   },
-  [MutationTypes.updateUserFailure](state: AuthState) {
+  [MutationTypes.getUserFailure](state: AuthState) {
     state.oUser = {};
   },
 
-  [MutationTypes.getProfileInitials](state: AuthState) {
+  [MutationTypes.getCurrentUserInitials](state: AuthState) {
     state.oProfile.initials = getInitials(state.oProfile.firstName) + getInitials(state.oProfile.lastName);
   },
 };
@@ -167,26 +164,22 @@ const actions = {
       });
   },
 
-  [ActionTypes.getProfile](context: AuthContext) {
-    context.commit(MutationTypes.getProfileStart);
-    $Api.getCurrentUser()
-      .then((dbResults: any) => {
-        context.commit(MutationTypes.getProfileSuccess, dbResults.data());
-        context.commit(MutationTypes.getProfileInitials);
-      })
-      .catch(() => {
-        context.commit(MutationTypes.getProfileFailure);
-      });
-  },
-
-  [ActionTypes.updateUser](context: AuthContext) {
-    context.commit(MutationTypes.updateUserStart);
-    $Api.updateUser()
+  [ActionTypes.getUser](context: AuthContext) {
+    context.commit(MutationTypes.getUserStart);
+    $Api.getUser()
       .then((user: any) => {
-        context.commit(MutationTypes.updateUserSuccess, user);
+        context.commit(MutationTypes.getUserSuccess, user);
+        $Api.getCurrentUser()
+          .then((dbResults: any) => {
+            context.commit(MutationTypes.getCurrentUserSuccess, dbResults.data());
+            context.commit(MutationTypes.getCurrentUserInitials);
+          })
+          .catch(() => {
+            context.commit(MutationTypes.getCurrentUserFailure);
+          });
       })
       .catch(() => {
-        context.commit(MutationTypes.updateUserFailure);
+        context.commit(MutationTypes.getUserFailure);
       });
   }
 };
