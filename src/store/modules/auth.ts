@@ -46,7 +46,7 @@ const mutations = {
   },
   [MutationTypes.signInFailure](state: AuthState) {
     state.isLoginButtonLoading = false;
-    state.isLoggedIn = true;
+    state.isLoggedIn = false;
     state.sErrorMessageLogin = 'Make sure your email and password are correct';
   },
 
@@ -78,11 +78,9 @@ const mutations = {
 
   [MutationTypes.signOutStart](state: AuthState) {
     state.isLoggedIn = false;
-
   },
   [MutationTypes.signOutSuccess](state: AuthState) {
     state.isLoggedIn = false;
-
   },
   [MutationTypes.signOutFailure](state: AuthState) {
     state.isLoggedIn = true;
