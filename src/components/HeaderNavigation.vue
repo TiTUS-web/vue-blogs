@@ -11,7 +11,7 @@
             </div>
             <div class="links nav__links">
                 <div v-show="!bMobileMode" class="list links__list">
-                    <template v-if="oUser && oProfile.initials">
+                    <template v-if="!isEmpty(oProfile)">
                       <router-link class="link list__link" to="/settings">Settings</router-link>
                       <router-link class="link list__link" to="#">Create Post</router-link>
                       <div class="profile" @click="showProfileMenu">
@@ -48,6 +48,7 @@
 <script lang="ts">
 import ProfileMenu from '@/components/ui/ProfileMenu.vue';
 
+import isEmpty from '@/utils/isEmpty';
 import { computed, defineComponent, ref, Ref } from 'vue';
 import { useStore } from 'vuex';
 
@@ -92,8 +93,6 @@ export default defineComponent({
       oUser: computed(() => store.state.auth.oUser),
       oProfile: computed(() => store.state.auth.oProfile),
 
-      store,
-
       bMobileMode,
       bMobileToggle,
       bShowProfileMenu,
@@ -101,6 +100,7 @@ export default defineComponent({
       checkScreen,
       toggleMobileNavigation,
       showProfileMenu,
+      isEmpty,
     };
   },
 });

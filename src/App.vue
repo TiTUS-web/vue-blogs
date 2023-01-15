@@ -1,8 +1,10 @@
 <template>
   <header-navigation />
+  
   <main class="content app__content">
       <router-view />
   </main>
+  
   <footer-navigation />
 </template>
 

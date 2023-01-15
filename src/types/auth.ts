@@ -37,10 +37,10 @@ enum ActionTypes {
 }
 
 type oProfile = { 
-    email: string,
-    firstName: string,
-    lastName: string,
-    username: string,
+    email?: string,
+    firstName?: string,
+    lastName?: string,
+    username?: string,
     id?: number | null,
     initials?: string,
 };
@@ -49,7 +49,6 @@ type AuthState = {
     isProfileLoading: boolean;
 
     isLoginButtonLoading: boolean;
-    isLoggedIn: boolean,
     sErrorMessageLogin: string,
 
     isRecoverButtonLoading: boolean,

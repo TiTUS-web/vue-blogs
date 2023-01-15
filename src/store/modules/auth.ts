@@ -10,7 +10,6 @@ const state: AuthState = {
   isProfileLoading: false,
 
   isLoginButtonLoading: false,
-  isLoggedIn: false,
   sErrorMessageLogin: '',
 
   isRecoverButtonLoading: false,
@@ -23,30 +22,20 @@ const state: AuthState = {
   editPost: {},
 
   oUser: {},
-  oProfile: {
-    email: '',
-    firstName: '',
-    lastName: '',
-    username: '',
-    id: null,
-    initials: '',
-  },
+  oProfile: {},
 };
 
 const mutations = {
   [MutationTypes.signInStart](state: AuthState) {
     state.isLoginButtonLoading = true;
-    state.isLoggedIn = false;
     state.sErrorMessageLogin  = '';
   },
   [MutationTypes.signInSuccess](state: AuthState) {
     state.isLoginButtonLoading = false;
-    state.isLoggedIn = true;
     state.sErrorMessageLogin  = '';
   },
   [MutationTypes.signInFailure](state: AuthState) {
     state.isLoginButtonLoading = false;
-    state.isLoggedIn = false;
     state.sErrorMessageLogin = 'Make sure your email and password are correct';
   },
 
@@ -77,16 +66,20 @@ const mutations = {
   },
 
   [MutationTypes.signOutStart](state: AuthState) {
-    state.isLoggedIn = false;
+    state.oUser = {};
+    state.oProfile = {};
   },
   [MutationTypes.signOutSuccess](state: AuthState) {
-    state.isLoggedIn = false;
+    state.oUser = {};
+    state.oProfile = {};
   },
   [MutationTypes.signOutFailure](state: AuthState) {
-    state.isLoggedIn = true;
+    state.oUser = {};
+    state.oProfile = {};
   },
 
   [MutationTypes.getCurrentUserStart](state: AuthState) {
+    state.oProfile = {};
     state.isProfileLoading = true;
   },
   [MutationTypes.getCurrentUserSuccess](state: AuthState, payload: any) {
@@ -98,11 +91,7 @@ const mutations = {
     state.isProfileLoading = false;
   },
   [MutationTypes.getCurrentUserFailure](state: AuthState) {
-    state.oProfile.id = null;
-    state.oProfile.email = '';
-    state.oProfile.firstName = '';
-    state.oProfile.lastName = '';
-    state.oProfile.username = '';
+    state.oProfile = {};
     state.isProfileLoading = false;
   },
 
@@ -117,7 +106,7 @@ const mutations = {
   },
 
   [MutationTypes.getCurrentUserInitials](state: AuthState) {
-    state.oProfile.initials = getInitials(state.oProfile.firstName) + getInitials(state.oProfile.lastName);
+    state.oProfile.initials = getInitials(state.oProfile.firstName!) + getInitials(state.oProfile.lastName!);
   },
 };
 
