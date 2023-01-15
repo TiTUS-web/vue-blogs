@@ -50,6 +50,9 @@ class Api {
             username: sUsername,
             email: sEmail,
           });
+
+          window.location.reload();
+          window.location.replace('/auth/login');
           resolve();
         })
         .catch((err) => {

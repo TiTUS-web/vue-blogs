@@ -92,23 +92,20 @@
           </router-link> 
         </p>
 
-        <button @click.prevent="register" class="button register__button">Sign Up</button>
+        <button @click.prevent="register" :disabled="isRegisterButtonLoading" class="button register__button">Sign Up</button>
     </form>
 </template>
 
 <script lang="ts">
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import db from '@/firebase/firebaseinit';
 import CreateAccount from '@/classes/CreateAccount';
-
-import {useRouter} from 'vue-router';
-import { defineComponent, ref, Ref } from 'vue';
+import { useStore } from 'vuex';
+import { computed, defineComponent, ref, Ref } from 'vue';
+import { ActionTypes } from '@/types/auth';
 
 export default defineComponent({
   name: 'Register',
   setup() {
-    const $router = useRouter();
+    const store = useStore();
     const verification: CreateAccount = new CreateAccount();
 
     const sFirstName: Ref<string | null> = ref(null);
@@ -202,31 +199,25 @@ export default defineComponent({
       return true;
     }
 
-    async function firebaseCreateUser() {
-      const firebaseAuth = firebase.auth();
-      const createUser = firebaseAuth.createUserWithEmailAndPassword(sEmail.value as string, sPassword.value as string);
-      const result = await createUser;
-      const dataBase = db.collection('users').doc(result.user?.uid);
-      
-      await dataBase.set({
-        firstName: sFirstName.value,
-        lastName: sLastName.value,
-        username: sUsername.value,
-        email: sEmail.value,
-      });
-    }
-
     function register() {
       if (!registerValidation()) {
         return;
       }
 
-      firebaseCreateUser();
-      
-      $router.replace('login/');
+      const oCredentials = { 
+        sEmail: sEmail.value, 
+        sPassword: sPassword.value, 
+        sFirstName: sFirstName.value, 
+        sLastName: sLastName.value, 
+        sUsername: sUsername.value 
+      };
+
+      store.dispatch(ActionTypes.register, oCredentials);
     }
 
     return {
+      isRegisterButtonLoading: computed(() => store.state.auth.isRegisterButtonLoading),
+
       sFirstName,
       sLastName,
       sUsername,
