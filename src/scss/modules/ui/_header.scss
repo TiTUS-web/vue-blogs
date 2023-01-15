@@ -38,8 +38,8 @@
 
 .list {
   & {
-    margin-right: 32px;
     display: flex;
+    align-items: center;
 
     &-mobile {
       margin-right: 32px;
@@ -65,7 +65,7 @@
     text-transform: uppercase;
     padding: 15px 0;
     color: #fff;
-    
+
     &:not(:last-child) {
       margin-right: 32px;
     }
@@ -84,7 +84,7 @@
     font-size: 24px;
     color: #fff;
     text-decoration: none;
-    transition: .2s;
+    transition: 0.2s;
 
     &:hover {
       color: #1eb8b8;
@@ -114,3 +114,78 @@
 .list-mobile-leave-to {
   transform: translateX(-350px);
 }
+
+.profile {
+  position: relative;
+  border-radius: 50%;
+  background: #181818;
+  padding: 16px 15px;
+  cursor: pointer;
+
+  // .profile__initials
+
+  &__initials {
+    color: #fff;
+  }
+
+  // .profile__menu
+
+  &__menu {
+    position: absolute;
+    top: 55px;
+    border-radius: 8px 0px 20px 8px;
+    right: 0;
+    width: 150px;
+    background-color: #303030;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 8px;
+    transition: .3s all;
+  }
+}
+
+.menu {
+
+  // .menu__line
+
+  &__line {
+    border-color: #EBEBEB;
+  }
+
+  // .menu__list
+
+  &__list {
+    display: block;
+    margin: 0;
+  }
+
+  // .menu__item
+
+  &__item {
+    display: block;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  // .menu__link
+
+  &__link {
+    color: #fff;
+    font-size: 16px;
+
+  }
+
+  // .menu__button
+
+  &__button {
+    color: #fff;
+    font-size: 16px;
+    padding: 0;
+
+  }
+}
+
+
+

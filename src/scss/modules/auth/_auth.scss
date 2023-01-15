@@ -1,20 +1,34 @@
 @use "./components/login";
+@use "./components/recover";
 @use "./components/register";
 
 .icon-hide {
-    margin-right: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.icon-hide--active {
+  filter: contrast(100);
+}
+
+@each $name in "login" "register" "recover" {
+  .#{$name} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    align-self: center;
   }
-  
-  .icon-hide--active {
-    filter: contrast(100);
+}
+
+@each $name in "email" "password" "firstname" "lastname" "repeat" "username" {
+  .#{$name}__block {
+    background-color: #f2f7f6;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    width: 260px;
   }
-  
-  @each $name in "email" "password" "firstname" "lastname" "repeat" {
-    .#{$name}__block {
-      background-color: #f2f7f6;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-  }
+}

@@ -1,5 +1,5 @@
 <template>
-    <div class="new-post">
+    <section class="new-post">
         <textarea 
           class="textarea new-post__textarea" 
           type="text" 
@@ -9,7 +9,7 @@
         <button class="button new-post__button">
             <img class="icon" src="@/assets/icons/new-post__button.svg" alt="button">
         </button>
-    </div>
+    </section>
 </template>
 
 <script lang="ts">

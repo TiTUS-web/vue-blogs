@@ -1,27 +1,31 @@
 <template>
   <header-navigation />
-  <div class="content app__content">
-    <!-- <home /> -->
-    <auth />
-  </div>
+  
+  <main class="content app__content">
+      <router-view />
+  </main>
+  
   <footer-navigation />
 </template>
 
 <script lang="ts">
-import HeaderNavigation from '@/ui/HeaderNavigation.vue';
-import FooterNavigation from '@/ui/FooterNavigation.vue';
-// import Home from '@/modules/home/index.vue';
-import Auth from '@/modules/auth/index.vue';
+import HeaderNavigation from '@/components/HeaderNavigation.vue';
+import FooterNavigation from '@/components/FooterNavigation.vue';
 
+import { useStore } from 'vuex';
 import { defineComponent } from 'vue';
+import { ActionTypes } from '@/types/auth';
 
 export default defineComponent({
   name: 'VueBlogs',
   components: {
     HeaderNavigation,
     FooterNavigation,
-    // Home,
-    Auth,
+  },
+  setup() {
+    const store = useStore();
+
+    store.dispatch(ActionTypes.getUser);
   },
 });
 </script>

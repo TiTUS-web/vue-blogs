@@ -1,13 +1,4 @@
 .register {
-    & {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      flex: 1;
-      align-self: center;
-    }
-  
     // .register__title
   
     &__title {
@@ -16,6 +7,20 @@
       color: #fff;
       margin-bottom: 40px;
     }
+
+    &__error {
+      text-decoration: none;
+      color: #D44333;
+      font-size: 14px;
+      margin: 16px 0 32px;
+      border-bottom: 1px solid transparent;
+      transition: all 0.5s ease;
+      margin: 0;
+
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+    }
   
     // .register__text
   
@@ -23,10 +28,16 @@
       text-decoration: none;
       color: #fff;
       font-size: 14px;
+      line-height: 18px;
       margin: 16px 0 32px;
       border-bottom: 1px solid transparent;
       transition: all 0.5s ease;
       margin: 0;
+
+      &--link {
+        color: #fff;
+        text-decoration: underline;
+      }
   
       &:first-child {
         margin-top: 15px;
@@ -53,7 +64,7 @@
       padding: 4px 4px 4px 30px;
       padding: 10px;
       border-radius: 10px;
-      width: 260px;
+      width: 100%;
     }
   
     // .register__input--email

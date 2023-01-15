@@ -1,5 +1,5 @@
-.login {
-  // .login__title
+.recover {
+  // .recover__title
 
   &__title {
     text-align: center;
@@ -22,7 +22,7 @@
     }
   }
 
-  // .login__text
+  // .recover__text
 
   &__text {
     text-decoration: none;
@@ -33,6 +33,19 @@
     border-bottom: 1px solid transparent;
     transition: all 0.5s ease;
     margin: 0;
+
+    &--center {
+      text-align: center;
+    }
+
+    &--success {
+      color: #40d840;
+    }
+
+    &--bottom {
+      margin-top: 0 !important;
+      margin-bottom: 20px;
+    }
 
     &--link {
       color: #fff;
@@ -48,14 +61,14 @@
     }
   }
 
-  // .login__container
+  // .recover__container
 
   &__container {
     display: flex;
     flex-direction: column;
   }
 
-  // .login__input
+  // .recover__input
 
   &__input {
     outline: none;
@@ -67,17 +80,17 @@
     width: 100%;
   }
 
-  // .login__input--email
+  // .recover__input--email
 
   &__input--email {
   }
 
-  // .login__input--password
+  // .recover__input--password
 
   &__input--password {
   }
 
-  // .login__button
+  // .recover__button
 
   &__button {
     transition: all 0.5s ease;

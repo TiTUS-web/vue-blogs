@@ -1,8 +1,8 @@
 <template>
-    <div class="home">
+    <section class="home">
       <new-post></new-post>
       <list-posts></list-posts>
-    </div>
+    </section>
 </template>
 
 <script lang="ts">
@@ -15,11 +15,6 @@ export default defineComponent({
   components: {
     NewPost,
     ListPosts
-  },
-  setup() {
-    return {
-            
-    };
   },
 });
 </script>
