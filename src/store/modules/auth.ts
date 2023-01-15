@@ -15,6 +15,7 @@ const state: AuthState = {
 
   isRecoverButtonLoading: false,
   sErrorMessageRecover: '',
+  sSuccessMessageRecover: '',
 
   isRegisterButtonLoading: false, 
 
@@ -51,14 +52,17 @@ const mutations = {
 
   [MutationTypes.recoverStart](state: AuthState) {
     state.isRecoverButtonLoading = true;
+    state.sSuccessMessageRecover = '';
     state.sErrorMessageRecover = '';
   },
   [MutationTypes.recoverSuccess](state: AuthState) {
     state.isRecoverButtonLoading = false;
+    state.sSuccessMessageRecover = 'If your account exists, you will receive an email';
     state.sErrorMessageRecover = '';
   },
   [MutationTypes.recoverFailure](state: AuthState) {
     state.isRecoverButtonLoading = false;
+    state.sSuccessMessageRecover = '';
     state.sErrorMessageRecover = 'Make sure your email are correct';
   },
 

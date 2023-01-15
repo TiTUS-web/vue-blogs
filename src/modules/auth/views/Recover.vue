@@ -22,55 +22,35 @@
         <p v-if="sErrorMessageRecover" class="error recover__error">{{ sErrorMessageRecover }}</p>
         <p v-show="sSuccessMessageRecover" class="text recover__text recover__text--success">{{ sSuccessMessageRecover }}</p>
         
-        <button @click.prevent="recover" class="button recover__button">Recover</button>
+        <button @click.prevent="recover" :disabled="isRecoverButtonLoading" class="button recover__button">Recover</button>
     </form>
 </template>
 
 <script lang="ts">
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
-import {useRouter} from 'vue-router';
-import { defineComponent, ref, Ref } from 'vue';
+import { useStore } from 'vuex';
+import { computed, defineComponent, ref, Ref } from 'vue';
+import { ActionTypes } from '@/types/auth';
 
 export default defineComponent({
   name: 'Recover',
   setup() {
-    const $router = useRouter();
+    const store = useStore();
     const sEmail: Ref<string | null> = ref(null);
 
-    let sErrorMessageRecover: Ref<string> = ref('');
-    let sSuccessMessageRecover: Ref<string> = ref('');
-
-    function firebaseRecover() {
-      firebase
-        .auth()
-        .sendPasswordResetEmail(sEmail.value as string)
-        .then(() => {
-          sErrorMessageRecover.value = '';
-          sSuccessMessageRecover.value = 'If your account exists, you will receive an email';
-          $router.push('/auth/login');
-        })
-        .catch((err) => {
-          sSuccessMessageRecover.value = '';
-          sErrorMessageRecover.value = 'Make sure your email are correct';
-          console.error(err);
-        });
-    }
-
     function recover() {
-      if (!sEmail.value) {
-        sErrorMessageRecover.value = 'Make sure your email are correct';
-      }
+      const oCredentials = {
+        sEmail: sEmail.value,
+      };
 
-      firebaseRecover();
+      store.dispatch(ActionTypes.recover, oCredentials);
     }
 
     return {
+      sErrorMessageRecover: computed(() => store.state.auth.sErrorMessageRecover),
+      sSuccessMessageRecover: computed(() => store.state.auth.sSuccessMessageRecover),
+      isRecoverButtonLoading: computed(() => store.state.auth.isRecoverButtonLoading),
+      
       sEmail,
-      sErrorMessageRecover,
-      sSuccessMessageRecover,
-
       recover,
     };
   }

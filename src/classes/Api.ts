@@ -29,6 +29,8 @@ class Api {
         .auth()
         .sendPasswordResetEmail(sEmail)
         .then(() => {
+          window.location.reload();
+          window.location.replace('/auth/login');
           resolve();
         })
         .catch((err) => {

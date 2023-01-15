@@ -53,6 +53,7 @@ type AuthState = {
     sErrorMessageLogin: string,
 
     isRecoverButtonLoading: boolean,
+    sSuccessMessageRecover: string,
     sErrorMessageRecover: string,
 
     isRegisterButtonLoading: boolean, 
