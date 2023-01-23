@@ -4,7 +4,7 @@ import Api from '@/classes/Api';
 
 const $Api = new Api();
 
-import {MutationTypes, ActionTypes, AuthState, AuthContext} from '@/types/auth';
+import {MutationTypes, oProfile, ActionTypes, AuthState, AuthContext} from '@/types/auth';
 
 const state: AuthState = {
   isProfileLoading: false,
@@ -78,19 +78,15 @@ const mutations = {
     state.oProfile = {};
   },
 
-  [MutationTypes.getCurrentUserStart](state: AuthState) {
+  [MutationTypes.getProfileStart](state: AuthState) {
     state.oProfile = {};
     state.isProfileLoading = true;
   },
-  [MutationTypes.getCurrentUserSuccess](state: AuthState, payload: any) {
-    state.oProfile.id = payload.id;
-    state.oProfile.email = payload.email;
-    state.oProfile.firstName = payload.firstName;
-    state.oProfile.lastName = payload.lastName;
-    state.oProfile.username = payload.username;
+  [MutationTypes.getProfileSuccess](state: AuthState, payload: oProfile) {
+    state.oProfile = payload;
     state.isProfileLoading = false;
   },
-  [MutationTypes.getCurrentUserFailure](state: AuthState) {
+  [MutationTypes.getProfileFailure](state: AuthState) {
     state.oProfile = {};
     state.isProfileLoading = false;
   },
@@ -105,7 +101,7 @@ const mutations = {
     state.oUser = {};
   },
 
-  [MutationTypes.getCurrentUserInitials](state: AuthState) {
+  [MutationTypes.getProfileInitials](state: AuthState) {
     state.oProfile.initials = getInitials(state.oProfile.firstName!) + getInitials(state.oProfile.lastName!);
   },
 };
@@ -157,20 +153,16 @@ const actions = {
 
   [ActionTypes.getUser](context: AuthContext) {
     context.commit(MutationTypes.getUserStart);
+    context.commit(MutationTypes.getProfileStart);
     $Api.getUser()
-      .then((user: any) => {
-        context.commit(MutationTypes.getUserSuccess, user);
-        $Api.getCurrentUser()
-          .then((dbResults: any) => {
-            context.commit(MutationTypes.getCurrentUserSuccess, dbResults.data());
-            context.commit(MutationTypes.getCurrentUserInitials);
-          })
-          .catch(() => {
-            context.commit(MutationTypes.getCurrentUserFailure);
-          });
+      .then(({oUser, oProfile}: any) => {
+        context.commit(MutationTypes.getUserSuccess, oUser);
+        context.commit(MutationTypes.getProfileSuccess, oProfile);
+        context.commit(MutationTypes.getProfileInitials);
       })
       .catch(() => {
         context.commit(MutationTypes.getUserFailure);
+        context.commit(MutationTypes.getProfileFailure);
       });
   }
 };

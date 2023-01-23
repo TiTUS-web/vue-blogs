@@ -1,6 +1,9 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import db from '@/firebase/firebaseinit';
+import { useStorage } from 'vue3-storage';
+
+const storage = useStorage();
 
 class Api {
   public signIn(sEmail: string, sPassword: string) {
@@ -65,6 +68,9 @@ class Api {
     return new Promise<void>((resolve, reject) => {
       firebase.auth().signOut()
         .then(() => {
+          storage.removeStorageSync('oUser');
+          storage.removeStorageSync('oProfile');
+
           window.location.reload();
           window.location.replace('/auth/login');
           resolve();
@@ -77,30 +83,29 @@ class Api {
 
   public getUser() {
     return new Promise((resolve, reject) => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          resolve(user);
+      if (!storage.getStorageSync('oUser') || !storage.getStorageSync('oProfile')) {
+        firebase.auth().onAuthStateChanged(oUser => {
+          if (oUser) {
+            const currentUser: any = firebase.auth().currentUser;
+            let oProfile: any = {};
 
-        } else {
-          reject();
-        }
-      });
-    });
-  }
+            const dataBase = db.collection('users').doc(currentUser.uid);
 
-  public getCurrentUser() {
-    return new Promise<void>((resolve, reject) => {
-      const currentUser = firebase.auth().currentUser;
-
-      if (!currentUser) return;
-        
-      const dataBase = db.collection('users').doc(currentUser.uid);
-      const dbResults: any = dataBase.get();
-      
-      if (dbResults) {
-        resolve(dbResults);
+            dataBase.get()
+              .then((dbResults: any) => {
+                oProfile = dbResults.data();
+                oProfile.id = dbResults.id;
+  
+                storage.setStorageSync('oUser', oUser);
+                storage.setStorageSync('oProfile', oProfile);
+                resolve({oUser, oProfile});
+              });
+          } else {
+            reject();
+          }
+        });
       } else {
-        reject();
+        resolve({ oUser: storage.getStorageSync('oUser'), oProfile: storage.getStorageSync('oProfile')});
       }
     });
   }

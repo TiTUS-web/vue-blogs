@@ -12,7 +12,6 @@
             <div class="links nav__links">
                 <div v-show="!bMobileMode" class="list links__list">
                     <template v-if="!isEmpty(oProfile)">
-                      <router-link class="link list__link" to="/settings">Settings</router-link>
                       <router-link class="link list__link" to="#">Create Post</router-link>
                       <div class="profile" @click="showProfileMenu">
                         <span class="initials profile__initials">
@@ -90,7 +89,6 @@ export default defineComponent({
     }
 
     return {
-      oUser: computed(() => store.state.auth.oUser),
       oProfile: computed(() => store.state.auth.oProfile),
 
       bMobileMode,
