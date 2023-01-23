@@ -83,43 +83,29 @@ class Api {
 
   public getUser() {
     return new Promise((resolve, reject) => {
-      if (!storage.getStorageSync('oUser')) {
+      if (!storage.getStorageSync('oUser') || !storage.getStorageSync('oProfile')) {
         firebase.auth().onAuthStateChanged(oUser => {
           if (oUser) {
-            storage.setStorageSync('oUser', oUser);
-            resolve(oUser);
+            const currentUser: any = firebase.auth().currentUser;
+            let oProfile: any = {};
+
+            const dataBase = db.collection('users').doc(currentUser.uid);
+
+            dataBase.get()
+              .then((dbResults: any) => {
+                oProfile = dbResults.data();
+                oProfile.id = dbResults.id;
+  
+                storage.setStorageSync('oUser', oUser);
+                storage.setStorageSync('oProfile', oProfile);
+                resolve({oUser, oProfile});
+              });
           } else {
             reject();
           }
         });
       } else {
-        resolve(storage.getStorageSync('oUser'));
-      }
-    });
-  }
-
-  public getCurrentUser() {
-    return new Promise<void>((resolve, reject) => {
-      if (!storage.getStorageSync('oProfile')) {
-        const currentUser = firebase.auth().currentUser;
-        let oProfile: any = {};
-  
-        if (!currentUser) return;
-          
-        const dataBase = db.collection('users').doc(currentUser.uid);
-        dataBase.get()
-          .then((dbResults: any) => {
-            oProfile = dbResults.data();
-            oProfile.id = dbResults.id;
-            
-            storage.setStorageSync('oProfile', oProfile);
-            resolve(oProfile);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      } else {
-        resolve(storage.getStorageSync('oProfile'));
+        resolve({ oUser: storage.getStorageSync('oUser'), oProfile: storage.getStorageSync('oProfile')});
       }
     });
   }

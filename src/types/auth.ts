@@ -17,11 +17,11 @@ enum MutationTypes {
     signOutSuccess = '[auth] signOutSuccess',
     signOutFailure = '[auth] signOutFailure',
 
-    getCurrentUserStart = '[auth] getProfileStart',
-    getCurrentUserSuccess = '[auth] getProfileSuccess',
-    getCurrentUserFailure = '[auth] getProfileFailure',
+    getProfileStart = '[auth] getProfileStart',
+    getProfileSuccess = '[auth] getProfileSuccess',
+    getProfileFailure = '[auth] getProfileFailure',
 
-    getCurrentUserInitials = '[auth] getProfileInitials', 
+    getProfileInitials = '[auth] getProfileInitials', 
 
     getUserStart = '[auth] getUserStart', 
     getUserSuccess = '[auth] getUserSuccess', 
