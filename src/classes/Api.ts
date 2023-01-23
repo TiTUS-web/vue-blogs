@@ -68,6 +68,9 @@ class Api {
     return new Promise<void>((resolve, reject) => {
       firebase.auth().signOut()
         .then(() => {
+          storage.removeStorageSync('oUser');
+          storage.removeStorageSync('oProfile');
+
           window.location.reload();
           window.location.replace('/auth/login');
           resolve();
