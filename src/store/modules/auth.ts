@@ -4,7 +4,7 @@ import Api from '@/classes/Api';
 
 const $Api = new Api();
 
-import {MutationTypes, ActionTypes, AuthState, AuthContext} from '@/types/auth';
+import {MutationTypes, oProfile, ActionTypes, AuthState, AuthContext} from '@/types/auth';
 
 const state: AuthState = {
   isProfileLoading: false,
@@ -82,12 +82,8 @@ const mutations = {
     state.oProfile = {};
     state.isProfileLoading = true;
   },
-  [MutationTypes.getCurrentUserSuccess](state: AuthState, payload: any) {
-    state.oProfile.id = payload.id;
-    state.oProfile.email = payload.email;
-    state.oProfile.firstName = payload.firstName;
-    state.oProfile.lastName = payload.lastName;
-    state.oProfile.username = payload.username;
+  [MutationTypes.getCurrentUserSuccess](state: AuthState, payload: oProfile) {
+    state.oProfile = payload;
     state.isProfileLoading = false;
   },
   [MutationTypes.getCurrentUserFailure](state: AuthState) {
@@ -158,11 +154,11 @@ const actions = {
   [ActionTypes.getUser](context: AuthContext) {
     context.commit(MutationTypes.getUserStart);
     $Api.getUser()
-      .then((user: any) => {
-        context.commit(MutationTypes.getUserSuccess, user);
+      .then((oUser: any) => {
+        context.commit(MutationTypes.getUserSuccess, oUser);
         $Api.getCurrentUser()
-          .then((dbResults: any) => {
-            context.commit(MutationTypes.getCurrentUserSuccess, dbResults.data());
+          .then((oProfile: any) => {
+            context.commit(MutationTypes.getCurrentUserSuccess, oProfile);
             context.commit(MutationTypes.getCurrentUserInitials);
           })
           .catch(() => {

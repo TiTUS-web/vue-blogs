@@ -41,7 +41,7 @@ type oProfile = {
     firstName?: string,
     lastName?: string,
     username?: string,
-    id?: number | null,
+    id?: string,
     initials?: string,
 };
 

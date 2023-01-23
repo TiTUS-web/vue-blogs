@@ -1,6 +1,9 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import db from '@/firebase/firebaseinit';
+import { useStorage } from 'vue3-storage';
+
+const storage = useStorage();
 
 class Api {
   public signIn(sEmail: string, sPassword: string) {
@@ -77,30 +80,43 @@ class Api {
 
   public getUser() {
     return new Promise((resolve, reject) => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          resolve(user);
-
-        } else {
-          reject();
-        }
-      });
+      if (!storage.getStorageSync('oUser')) {
+        firebase.auth().onAuthStateChanged(oUser => {
+          if (oUser) {
+            storage.setStorageSync('oUser', oUser);
+            resolve(oUser);
+          } else {
+            reject();
+          }
+        });
+      } else {
+        resolve(storage.getStorageSync('oUser'));
+      }
     });
   }
 
   public getCurrentUser() {
     return new Promise<void>((resolve, reject) => {
-      const currentUser = firebase.auth().currentUser;
-
-      if (!currentUser) return;
-        
-      const dataBase = db.collection('users').doc(currentUser.uid);
-      const dbResults: any = dataBase.get();
-      
-      if (dbResults) {
-        resolve(dbResults);
+      if (!storage.getStorageSync('oProfile')) {
+        const currentUser = firebase.auth().currentUser;
+        let oProfile: any = {};
+  
+        if (!currentUser) return;
+          
+        const dataBase = db.collection('users').doc(currentUser.uid);
+        dataBase.get()
+          .then((dbResults: any) => {
+            oProfile = dbResults.data();
+            oProfile.id = dbResults.id;
+            
+            storage.setStorageSync('oProfile', oProfile);
+            resolve(oProfile);
+          })
+          .catch((err) => {
+            reject(err);
+          });
       } else {
-        reject();
+        resolve(storage.getStorageSync('oProfile'));
       }
     });
   }
