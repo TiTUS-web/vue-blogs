@@ -5,14 +5,11 @@
         <div class="initials settings__initials">
             {{ sInitials }}
         </div>  
-        <!-- <div class="role settings__role">
-            Admin
-        </div> -->
 
     <div class="info settings__info">
         <div class="container info__container">
             <div class="block info__block">
-                <label class="label info__label" for="firstName">
+                <label class="label info__label" for="email">
                     Email
                 </label>
 
@@ -46,7 +43,7 @@
                 />
             </div>
             <div class="block info__block">
-                <label class="label info__label" for="firstName">
+                <label class="label info__label" for="lastName">
                     Last name
                 </label>
 
@@ -62,7 +59,7 @@
                 />
             </div>
             <div class="block info__block">
-                <label class="label info__label" for="firstName">
+                <label class="label info__label" for="username">
                     Username
                 </label>
 
@@ -90,7 +87,7 @@
 <script lang="ts">
 import CreateAccount from '@/classes/CreateAccount';
 import { ActionTypes, MutationTypes } from '@/types/auth';
-import { defineComponent, Ref, ref, computed, WritableComputedRef, ComputedRef, ComputedGetter } from 'vue';
+import { defineComponent, Ref, ref, computed, WritableComputedRef, ComputedRef } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
