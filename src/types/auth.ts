@@ -26,6 +26,14 @@ enum MutationTypes {
     getUserStart = '[auth] getUserStart', 
     getUserSuccess = '[auth] getUserSuccess', 
     getUserFailure = '[auth] getUserFailure', 
+
+    changeFirstName = '[auth] changeFirstName',
+    changeLastName = '[auth] changeLastName',
+    changeUsername = '[auth] changeUsername',
+
+    updateProfileStart = '[auth] updateProfileStart',
+    updateProfileSuccess = '[auth] updateProfileSuccess',
+    updateProfileFailure = '[auth] updateProfileFailure',
 }
 
 enum ActionTypes {
@@ -34,6 +42,7 @@ enum ActionTypes {
   recover = '[auth] recover',
   register = '[auth] register',
   signOut = '[auth] signOut',
+  updateProfile = '[auth] updateProfile',
 }
 
 type oProfile = { 
@@ -56,6 +65,9 @@ type AuthState = {
     sErrorMessageRecover: string,
 
     isRegisterButtonLoading: boolean, 
+
+    isSaveChangesButtonLoading: boolean, 
+    sSuccessMessageSaveChanges: string,
 
     arPosts: [],
     editPost: object,

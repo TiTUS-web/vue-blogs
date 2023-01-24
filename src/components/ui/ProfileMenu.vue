@@ -2,7 +2,7 @@
     <div class="menu profile__menu">
         <ul class="list menu__list">
             <li class="item menu__item">
-                <router-link class="link menu__link" to="/profile">Profile</router-link>
+                <router-link class="link menu__link" to="/settings">Profile</router-link>
             </li>
             <li class="item menu__item">
                 <button @click="signOut" class="button menu__button">Sign Out</button>

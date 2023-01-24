@@ -18,6 +18,9 @@ const state: AuthState = {
 
   isRegisterButtonLoading: false, 
 
+  isSaveChangesButtonLoading: false, 
+  sSuccessMessageSaveChanges: '',
+
   arPosts: [],
   editPost: {},
 
@@ -104,6 +107,29 @@ const mutations = {
   [MutationTypes.getProfileInitials](state: AuthState) {
     state.oProfile.initials = getInitials(state.oProfile.firstName!) + getInitials(state.oProfile.lastName!);
   },
+
+  [MutationTypes.changeFirstName](state: AuthState, payload: string) {
+    state.oProfile.firstName = payload;
+  },
+  [MutationTypes.changeLastName](state: AuthState, payload: string) {
+    state.oProfile.lastName = payload;
+  },
+  [MutationTypes.changeUsername](state: AuthState, payload: string) {
+    state.oProfile.username = payload;
+  },
+
+  [MutationTypes.updateProfileStart](state: AuthState) {
+    state.isSaveChangesButtonLoading = true;
+    state.sSuccessMessageSaveChanges = '';
+  },
+  [MutationTypes.updateProfileSuccess](state: AuthState) {
+    state.isSaveChangesButtonLoading = false;
+    state.sSuccessMessageSaveChanges = 'Changes have been successfully saved';
+  },
+  [MutationTypes.updateProfileFailure](state: AuthState) {
+    state.isSaveChangesButtonLoading = false;
+    state.sSuccessMessageSaveChanges = '';
+  },
 };
 
 const actions = {
@@ -163,6 +189,20 @@ const actions = {
       .catch(() => {
         context.commit(MutationTypes.getUserFailure);
         context.commit(MutationTypes.getProfileFailure);
+      });
+  },
+
+  [ActionTypes.updateProfile](context: AuthContext, credentials: {id: string, sFirstName: string, sLastName: string, sUsername: string}) {
+    context.commit(MutationTypes.updateProfileStart);
+    $Api.updateProfile(credentials)
+      .then(({oUser, oProfile}: any) => {
+        context.commit(MutationTypes.updateProfileSuccess);
+        context.commit(MutationTypes.getUserSuccess, oUser);
+        context.commit(MutationTypes.getProfileSuccess, oProfile);
+        context.commit(MutationTypes.getProfileInitials);
+      })
+      .catch(() => {
+        context.commit(MutationTypes.updateProfileFailure);
       });
   }
 };
