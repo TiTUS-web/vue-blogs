@@ -109,6 +109,31 @@ class Api {
       }
     });
   }
+
+  public updateProfile(credentials: {id: string, sFirstName: string, sLastName: string, sUsername: string}) {
+    return new Promise<void>((resolve, reject) => {
+      const dataBase = db.collection('users').doc(credentials.id);
+
+      dataBase.update({
+        firstName: credentials.sFirstName,
+        lastName: credentials.sLastName,
+        username: credentials.sUsername,
+      })
+        .then(() => {
+          storage.removeStorageSync('oUser');
+          storage.removeStorageSync('oProfile');
+
+          this.getUser()
+            .then((payload: any) => {
+              resolve(payload);
+            });
+        })
+        .catch(() => {
+          reject();
+        });
+
+    });
+  }
 }
 
 export default Api;

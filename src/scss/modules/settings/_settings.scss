@@ -1,0 +1,148 @@
+.settings {
+  & {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    align-self: center;
+  }
+
+  // .settings__initials
+
+  &__initials {
+    padding: 10px;
+    border-radius: 50%;
+    color: #fff;
+    background: #202020;
+    padding: 28px 27px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  // .settings__role
+
+  &__role {
+    color: #fff;
+    background: #202020;
+    padding: 8px 18px;
+    border-radius: 5px;
+  }
+
+  // .settings__container
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .settings__title
+
+  &__title {
+    text-align: center;
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 40px;
+  }
+
+  &__error {
+    text-decoration: none;
+    color: #d44333;
+    font-size: 14px;
+    margin: 16px 0 32px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.5s ease;
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
+  // .settings__text
+
+  &__text {
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    line-height: 18px;
+    margin: 16px 0 32px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.5s ease;
+    margin: 0;
+
+    &--link {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    &:first-child {
+      margin-top: 15px;
+    }
+
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+  }
+
+  // .settings__button
+
+  &__button {
+    display: flex;
+    margin: 0 auto;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    margin-top: 24px;
+    margin-bottom: 15px;
+    padding: 12px 24px;
+    background: #1eb8b8;
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    text-transform: uppercase;
+  }
+}
+
+.info {
+  & {
+    margin-top: 20px;
+  }
+
+  // .info__label
+
+  &__label {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  // .info__error
+
+  &__error {
+    text-decoration: none;
+    color: #d44333;
+    font-size: 14px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.5s ease;
+    margin: 7px 0 5px 0;
+  }
+
+  &__success {
+    color: #40d840;
+  }
+
+  // .info__input
+
+  &__input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    outline: none;
+    border: none;
+    background-color: #f2f7f6;
+    padding: 10px;
+    border-radius: 10px;
+    width: 97%;
+    margin-bottom: 12px;
+  }
+}
