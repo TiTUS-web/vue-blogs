@@ -35,10 +35,14 @@
 
         <transition name="list-mobile">
             <div v-show="bMobileToggle" class="list-mobile links__list-mobile">
-                <router-link class="link list__link list__link--mobile" to="/">Home</router-link>
-                <router-link class="link list__link list__link--mobile" to="#">Blogs</router-link>
-                <router-link class="link list__link list__link--mobile" to="#">Create Post</router-link>
+              <router-link class="link list__link list__link--mobile" to="/">Home</router-link>
+              <template v-if="!isEmpty(oProfile)">
+                <router-link class="link list__link list__link--mobile" to="/create-post">Create Post</router-link>
+                <button @click="signOut" class="link list__link list__link--mobile">Sign Out</button>
+              </template>
+              <template v-else>
                 <router-link class="link list__link list__link--mobile" to="/auth/login">Login/Register</router-link>
+              </template>
             </div>
         </transition>
     </header>
@@ -46,6 +50,7 @@
 
 <script lang="ts">
 import ProfileMenu from '@/components/ui/ProfileMenu.vue';
+import { ActionTypes } from '@/types/auth';
 
 import isEmpty from '@/utils/isEmpty';
 import { computed, defineComponent, ref, Ref } from 'vue';
@@ -88,6 +93,10 @@ export default defineComponent({
       bShowProfileMenu.value = !bShowProfileMenu.value;
     }
 
+    function signOut() {
+      store.dispatch(ActionTypes.signOut);
+    }
+
     return {
       oProfile: computed(() => store.state.auth.oProfile),
 
@@ -99,6 +108,7 @@ export default defineComponent({
       toggleMobileNavigation,
       showProfileMenu,
       isEmpty,
+      signOut,
     };
   },
 });
