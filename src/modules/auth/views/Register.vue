@@ -1,106 +1,122 @@
 <template>
-    <form class="register">
+  <form class="register">
+    <h2 class="title register__title">Create Your Blog Account</h2>
 
-        <h2 class="title register__title">Create Your Blog Account</h2>
+    <div class="container register__container">
+      <div class="block firstname__block">
+        <input
+          class="input register__input register__input--firstname"
+          type="text"
+          v-model="sFirstName"
+          placeholder="First Name"
+          name="firstname"
+          required
+        />
+      </div>
+      <div class="block lastname__block">
+        <input
+          class="input register__input register__input--lastname"
+          type="text"
+          v-model="sLastName"
+          placeholder="Last Name"
+          name="lastname"
+        />
+      </div>
+      <div class="block username__block">
+        <input
+          class="input register__input register__input--username"
+          type="text"
+          v-model="sUsername"
+          placeholder="Username"
+          name="username"
+        />
+      </div>
+      <div class="block email__block">
+        <input
+          class="input register__input register__input--email"
+          type="text"
+          v-model="sEmail"
+          placeholder="Email"
+          name="email"
+        />
+      </div>
+      <div class="block password__block">
+        <input
+          class="input register__input register__input--password"
+          type="password"
+          v-model="sPassword"
+          placeholder="Password"
+          name="password"
+        />
 
-        <div class="container register__container">
-            <div class="block firstname__block">
-                <input 
-                  class="input register__input register__input--firstname" 
-                  type="text"
-                  v-model="sFirstName" 
-                  placeholder="First Name" 
-                  name="firstname" 
-                  required
-                />
-            </div>
-            <div class="block lastname__block">
-                <input 
-                  class="input register__input register__input--lastname" 
-                  type="text"
-                  v-model="sLastName" 
-                  placeholder="Last Name" 
-                  name="lastname" 
-                />
-            </div>
-            <div class="block username__block">
-                <input 
-                  class="input register__input register__input--username" 
-                  type="text"
-                  v-model="sUsername" 
-                  placeholder="Username" 
-                  name="username" 
-                />
-            </div>
-            <div class="block email__block">
-                <input 
-                  class="input register__input register__input--email" 
-                  type="text"
-                  v-model="sEmail" 
-                  placeholder="Email" 
-                  name="email" 
-                />
-            </div>
-            <div class="block password__block">
-                <input 
-                  class="input register__input register__input--password" 
-                  type="password"
-                  v-model="sPassword" 
-                  placeholder="Password" 
-                  name="password" 
-                />
+        <img
+          class="icon-hide"
+          :class="{'icon-hide--active': !isPasswordHide}"
+          @click="toggleViewPassword"
+          src="@/assets/icons/password--hide.svg"
+          alt="password--hide"
+        />
+      </div>
+      <div class="block repeat__block">
+        <input
+          class="input register__input register__input--repeat"
+          type="password"
+          v-model="sRepeatPassword"
+          placeholder="Repeat Password"
+          name="repeat"
+        />
 
-                <img 
-                  class="icon-hide" 
-                  :class="{'icon-hide--active': !isPasswordHide}" 
-                  @click="toggleViewPassword"
-                  src="@/assets/icons/password--hide.svg" 
-                  alt="password--hide"
-                >
-            </div>
-            <div class="block repeat__block">
-                <input 
-                  class="input register__input register__input--repeat" 
-                  type="password"
-                  v-model="sRepeatPassword" 
-                  placeholder="Repeat Password" 
-                  name="repeat" 
-                />
+        <img
+          class="icon-hide"
+          :class="{'icon-hide--active': !isPasswordRepeatHide}"
+          @click="toggleViewPasswordRepeat"
+          src="@/assets/icons/password--hide.svg"
+          alt="repeat--hide"
+        />
+      </div>
+    </div>
 
-                <img 
-                  class="icon-hide"
-                  :class="{'icon-hide--active': !isPasswordRepeatHide}"
-                  @click="toggleViewPasswordRepeat" 
-                  src="@/assets/icons/password--hide.svg" 
-                  alt="repeat--hide"
-                >
-            </div>
-        </div>
+    <p v-if="sErrorMessageFirstName" class="error register__error">
+      {{ sErrorMessageFirstName }}
+    </p>
+    <p v-if="sErrorMessageLastName" class="error register__error">
+      {{ sErrorMessageLastName }}
+    </p>
+    <p v-if="sErrorMessageUsername" class="error register__error">
+      {{ sErrorMessageUsername }}
+    </p>
+    <p v-if="sErrorMessageEmail" class="error register__error">
+      {{ sErrorMessageEmail }}
+    </p>
+    <p v-if="sErrorMessagePassword" class="error register__error">
+      {{ sErrorMessagePassword }}
+    </p>
+    <p v-if="sErrorMessageRepeatPassword" class="error register__error">
+      {{ sErrorMessageRepeatPassword }}
+    </p>
 
+    <p class="text register__text">
+      Already have an account?
+      <router-link to="/auth/login" class="link register__text--link">
+        Sign in
+      </router-link>
+    </p>
 
-        <p v-if="sErrorMessageFirstName" class="error register__error">{{ sErrorMessageFirstName }}</p>
-        <p v-if="sErrorMessageLastName" class="error register__error">{{ sErrorMessageLastName }}</p>
-        <p v-if="sErrorMessageUsername" class="error register__error">{{ sErrorMessageUsername }}</p>
-        <p v-if="sErrorMessageEmail" class="error register__error">{{ sErrorMessageEmail }}</p>
-        <p v-if="sErrorMessagePassword" class="error register__error">{{ sErrorMessagePassword }}</p>
-        <p v-if="sErrorMessageRepeatPassword" class="error register__error">{{ sErrorMessageRepeatPassword }}</p>
-        
-        <p class="text register__text">
-          Already have an account? 
-          <router-link to="/auth/login" class="link register__text--link">
-            Sign in
-          </router-link> 
-        </p>
-
-        <button @click.prevent="register" :disabled="isRegisterButtonLoading" class="button register__button">Sign Up</button>
-    </form>
+    <button
+      @click.prevent="register"
+      :disabled="isRegisterButtonLoading"
+      class="button register__button"
+    >
+      Sign Up
+    </button>
+  </form>
 </template>
 
 <script lang="ts">
 import CreateAccount from '@/classes/CreateAccount';
-import { useStore } from 'vuex';
-import { computed, defineComponent, ref, Ref } from 'vue';
-import { ActionTypes } from '@/types/auth';
+import {useStore} from 'vuex';
+import {computed, defineComponent, ref, Ref} from 'vue';
+import {ActionTypes} from '@/types/auth';
 
 export default defineComponent({
   name: 'Register',
@@ -122,11 +138,12 @@ export default defineComponent({
     let sErrorMessagePassword: Ref<string> = ref('');
     let sErrorMessageRepeatPassword: Ref<string> = ref('');
 
-
     let isPasswordHide: Ref<boolean> = ref(true);
 
     function toggleViewPassword() {
-      const passwordField: Ref<Element | null> = ref(document.querySelector('.register__input--password'));
+      const passwordField: Ref<Element | null> = ref(
+        document.querySelector('.register__input--password')
+      );
 
       if (!passwordField.value) return;
 
@@ -142,7 +159,9 @@ export default defineComponent({
     let isPasswordRepeatHide: Ref<boolean> = ref(true);
 
     function toggleViewPasswordRepeat() {
-      const passwordRepeatField: Ref<Element | null> = ref(document.querySelector('.register__input--repeat'));
+      const passwordRepeatField: Ref<Element | null> = ref(
+        document.querySelector('.register__input--repeat')
+      );
 
       if (!passwordRepeatField.value) return;
 
@@ -165,17 +184,20 @@ export default defineComponent({
       sErrorMessageRepeatPassword.value = '';
 
       if (!verification.checkFirstNameValue(sFirstName.value as string)) {
-        sErrorMessageFirstName.value = 'The first name must consist of the letters';
+        sErrorMessageFirstName.value =
+          'The first name must consist of the letters';
         bCheckError = true;
       }
 
       if (!verification.checkLastNameValue(sLastName.value as string)) {
-        sErrorMessageLastName.value = 'The last name must consist of at least 3 letters';
+        sErrorMessageLastName.value =
+          'The last name must consist of at least 3 letters';
         bCheckError = true;
       }
 
       if (!verification.checkUsernameValue(sUsername.value as string)) {
-        sErrorMessageUsername.value = 'The username must consist of at least 5 letters';
+        sErrorMessageUsername.value =
+          'The username must consist of at least 5 letters';
         bCheckError = true;
       }
 
@@ -185,12 +207,19 @@ export default defineComponent({
       }
 
       if (!verification.checkPasswordValue(sPassword.value as string)) {
-        sErrorMessagePassword.value = 'The password must be 7 to 15 characters long, containing at least one number and a special character';
+        sErrorMessagePassword.value =
+          'The password must be 7 to 15 characters long, containing at least one number and a special character';
         bCheckError = true;
       }
 
-      if (!verification.checkPasswordRepeatValue(sPassword.value as string, sRepeatPassword.value as string)) {
-        sErrorMessageRepeatPassword.value = 'The repeat password must be appropriate';
+      if (
+        !verification.checkPasswordRepeatValue(
+          sPassword.value as string,
+          sRepeatPassword.value as string
+        )
+      ) {
+        sErrorMessageRepeatPassword.value =
+          'The repeat password must be appropriate';
         bCheckError = true;
       }
 
@@ -204,19 +233,21 @@ export default defineComponent({
         return;
       }
 
-      const oCredentials = { 
-        sEmail: sEmail.value, 
-        sPassword: sPassword.value, 
-        sFirstName: sFirstName.value, 
-        sLastName: sLastName.value, 
-        sUsername: sUsername.value 
+      const oCredentials = {
+        sEmail: sEmail.value,
+        sPassword: sPassword.value,
+        sFirstName: sFirstName.value,
+        sLastName: sLastName.value,
+        sUsername: sUsername.value,
       };
 
       store.dispatch(ActionTypes.register, oCredentials);
     }
 
     return {
-      isRegisterButtonLoading: computed(() => store.state.auth.isRegisterButtonLoading),
+      isRegisterButtonLoading: computed(
+        () => store.state.auth.isRegisterButtonLoading
+      ),
 
       sFirstName,
       sLastName,
@@ -239,6 +270,6 @@ export default defineComponent({
       toggleViewPassword,
       toggleViewPasswordRepeat,
     };
-  }
+  },
 });
 </script>

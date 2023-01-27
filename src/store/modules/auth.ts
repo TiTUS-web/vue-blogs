@@ -4,7 +4,13 @@ import Api from '@/classes/Api';
 
 const $Api = new Api();
 
-import {MutationTypes, oProfile, ActionTypes, AuthState, AuthContext} from '@/types/auth';
+import {
+  MutationTypes,
+  oProfile,
+  ActionTypes,
+  AuthState,
+  AuthContext,
+} from '@/types/auth';
 
 const state: AuthState = {
   isProfileLoading: false,
@@ -16,9 +22,9 @@ const state: AuthState = {
   sErrorMessageRecover: '',
   sSuccessMessageRecover: '',
 
-  isRegisterButtonLoading: false, 
+  isRegisterButtonLoading: false,
 
-  isSaveChangesButtonLoading: false, 
+  isSaveChangesButtonLoading: false,
   sSuccessMessageSaveChanges: '',
 
   arPosts: [],
@@ -31,11 +37,11 @@ const state: AuthState = {
 const mutations = {
   [MutationTypes.signInStart](state: AuthState) {
     state.isLoginButtonLoading = true;
-    state.sErrorMessageLogin  = '';
+    state.sErrorMessageLogin = '';
   },
   [MutationTypes.signInSuccess](state: AuthState) {
     state.isLoginButtonLoading = false;
-    state.sErrorMessageLogin  = '';
+    state.sErrorMessageLogin = '';
   },
   [MutationTypes.signInFailure](state: AuthState) {
     state.isLoginButtonLoading = false;
@@ -49,7 +55,8 @@ const mutations = {
   },
   [MutationTypes.recoverSuccess](state: AuthState) {
     state.isRecoverButtonLoading = false;
-    state.sSuccessMessageRecover = 'If your account exists, you will receive an email';
+    state.sSuccessMessageRecover =
+      'If your account exists, you will receive an email';
     state.sErrorMessageRecover = '';
   },
   [MutationTypes.recoverFailure](state: AuthState) {
@@ -105,7 +112,9 @@ const mutations = {
   },
 
   [MutationTypes.getProfileInitials](state: AuthState) {
-    state.oProfile.initials = getInitials(state.oProfile.firstName!) + getInitials(state.oProfile.lastName!);
+    state.oProfile.initials =
+      getInitials(state.oProfile.firstName!) +
+      getInitials(state.oProfile.lastName!);
   },
 
   [MutationTypes.changeFirstName](state: AuthState, payload: string) {
@@ -133,9 +142,13 @@ const mutations = {
 };
 
 const actions = {
-  [ActionTypes.signIn](context: AuthContext, credentials: { sEmail: string; sPassword: string; }) {
+  [ActionTypes.signIn](
+    context: AuthContext,
+    credentials: {sEmail: string; sPassword: string}
+  ) {
     context.commit(MutationTypes.signInStart);
-    $Api.signIn(credentials.sEmail, credentials.sPassword)
+    $Api
+      .signIn(credentials.sEmail, credentials.sPassword)
       .then(() => {
         context.commit(MutationTypes.signInSuccess);
       })
@@ -144,9 +157,10 @@ const actions = {
       });
   },
 
-  [ActionTypes.recover](context: AuthContext, credentials: { sEmail: string }) {
+  [ActionTypes.recover](context: AuthContext, credentials: {sEmail: string}) {
     context.commit(MutationTypes.recoverStart);
-    $Api.recover(credentials.sEmail)
+    $Api
+      .recover(credentials.sEmail)
       .then(() => {
         context.commit(MutationTypes.recoverSuccess);
       })
@@ -155,9 +169,25 @@ const actions = {
       });
   },
 
-  [ActionTypes.register](context: AuthContext, credentials: { sEmail: string, sPassword: string, sFirstName: string, sLastName: string, sUsername: string }) {
+  [ActionTypes.register](
+    context: AuthContext,
+    credentials: {
+      sEmail: string;
+      sPassword: string;
+      sFirstName: string;
+      sLastName: string;
+      sUsername: string;
+    }
+  ) {
     context.commit(MutationTypes.registerStart);
-    $Api.register(credentials.sEmail, credentials.sPassword, credentials.sFirstName, credentials.sLastName, credentials.sUsername)
+    $Api
+      .register(
+        credentials.sEmail,
+        credentials.sPassword,
+        credentials.sFirstName,
+        credentials.sLastName,
+        credentials.sUsername
+      )
       .then(() => {
         context.commit(MutationTypes.registerSuccess);
       })
@@ -168,7 +198,8 @@ const actions = {
 
   [ActionTypes.signOut](context: AuthContext) {
     context.commit(MutationTypes.signOutStart);
-    $Api.signOut()
+    $Api
+      .signOut()
       .then(() => {
         context.commit(MutationTypes.signOutSuccess);
       })
@@ -180,7 +211,8 @@ const actions = {
   [ActionTypes.getUser](context: AuthContext) {
     context.commit(MutationTypes.getUserStart);
     context.commit(MutationTypes.getProfileStart);
-    $Api.getUser()
+    $Api
+      .getUser()
       .then(({oUser, oProfile}: any) => {
         context.commit(MutationTypes.getUserSuccess, oUser);
         context.commit(MutationTypes.getProfileSuccess, oProfile);
@@ -192,9 +224,18 @@ const actions = {
       });
   },
 
-  [ActionTypes.updateProfile](context: AuthContext, credentials: {id: string, sFirstName: string, sLastName: string, sUsername: string}) {
+  [ActionTypes.updateProfile](
+    context: AuthContext,
+    credentials: {
+      id: string;
+      sFirstName: string;
+      sLastName: string;
+      sUsername: string;
+    }
+  ) {
     context.commit(MutationTypes.updateProfileStart);
-    $Api.updateProfile(credentials)
+    $Api
+      .updateProfile(credentials)
       .then(({oUser, oProfile}: any) => {
         context.commit(MutationTypes.updateProfileSuccess);
         context.commit(MutationTypes.getUserSuccess, oUser);
@@ -204,7 +245,7 @@ const actions = {
       .catch(() => {
         context.commit(MutationTypes.updateProfileFailure);
       });
-  }
+  },
 };
 
 export default {

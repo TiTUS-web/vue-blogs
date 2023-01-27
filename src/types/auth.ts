@@ -1,39 +1,39 @@
 import firebase from 'firebase/app';
 
 enum MutationTypes {
-    signInStart = '[auth] signInStart',
-    signInSuccess = '[auth] signInSuccess',
-    signInFailure = '[auth] signInFailure',
+  signInStart = '[auth] signInStart',
+  signInSuccess = '[auth] signInSuccess',
+  signInFailure = '[auth] signInFailure',
 
-    recoverStart = '[auth] recoverStart',
-    recoverSuccess = '[auth] recoverSuccess',
-    recoverFailure = '[auth] recoverFailure',
+  recoverStart = '[auth] recoverStart',
+  recoverSuccess = '[auth] recoverSuccess',
+  recoverFailure = '[auth] recoverFailure',
 
-    registerStart = '[auth] registerStart',
-    registerSuccess = '[auth] registerSuccess',
-    registerFailure = '[auth] registerFailure',
+  registerStart = '[auth] registerStart',
+  registerSuccess = '[auth] registerSuccess',
+  registerFailure = '[auth] registerFailure',
 
-    signOutStart = '[auth] signOutStart',
-    signOutSuccess = '[auth] signOutSuccess',
-    signOutFailure = '[auth] signOutFailure',
+  signOutStart = '[auth] signOutStart',
+  signOutSuccess = '[auth] signOutSuccess',
+  signOutFailure = '[auth] signOutFailure',
 
-    getProfileStart = '[auth] getProfileStart',
-    getProfileSuccess = '[auth] getProfileSuccess',
-    getProfileFailure = '[auth] getProfileFailure',
+  getProfileStart = '[auth] getProfileStart',
+  getProfileSuccess = '[auth] getProfileSuccess',
+  getProfileFailure = '[auth] getProfileFailure',
 
-    getProfileInitials = '[auth] getProfileInitials', 
+  getProfileInitials = '[auth] getProfileInitials',
 
-    getUserStart = '[auth] getUserStart', 
-    getUserSuccess = '[auth] getUserSuccess', 
-    getUserFailure = '[auth] getUserFailure', 
+  getUserStart = '[auth] getUserStart',
+  getUserSuccess = '[auth] getUserSuccess',
+  getUserFailure = '[auth] getUserFailure',
 
-    changeFirstName = '[auth] changeFirstName',
-    changeLastName = '[auth] changeLastName',
-    changeUsername = '[auth] changeUsername',
+  changeFirstName = '[auth] changeFirstName',
+  changeLastName = '[auth] changeLastName',
+  changeUsername = '[auth] changeUsername',
 
-    updateProfileStart = '[auth] updateProfileStart',
-    updateProfileSuccess = '[auth] updateProfileSuccess',
-    updateProfileFailure = '[auth] updateProfileFailure',
+  updateProfileStart = '[auth] updateProfileStart',
+  updateProfileSuccess = '[auth] updateProfileSuccess',
+  updateProfileFailure = '[auth] updateProfileFailure',
 }
 
 enum ActionTypes {
@@ -45,38 +45,43 @@ enum ActionTypes {
   updateProfile = '[auth] updateProfile',
 }
 
-type oProfile = { 
-    email?: string,
-    firstName?: string,
-    lastName?: string,
-    username?: string,
-    id?: string,
-    initials?: string,
+type oProfile = {
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  id?: string;
+  initials?: string;
 };
 
 type AuthState = {
-    isProfileLoading: boolean;
+  isProfileLoading: boolean;
 
-    isLoginButtonLoading: boolean;
-    sErrorMessageLogin: string,
+  isLoginButtonLoading: boolean;
+  sErrorMessageLogin: string;
 
-    isRecoverButtonLoading: boolean,
-    sSuccessMessageRecover: string,
-    sErrorMessageRecover: string,
+  isRecoverButtonLoading: boolean;
+  sSuccessMessageRecover: string;
+  sErrorMessageRecover: string;
 
-    isRegisterButtonLoading: boolean, 
+  isRegisterButtonLoading: boolean;
 
-    isSaveChangesButtonLoading: boolean, 
-    sSuccessMessageSaveChanges: string,
+  isSaveChangesButtonLoading: boolean;
+  sSuccessMessageSaveChanges: string;
 
-    arPosts: [],
-    editPost: object,
-    oUser: object, 
-    oProfile: oProfile,
-}
+  arPosts: [];
+  editPost: object;
+  oUser: object;
+  oProfile: oProfile;
+};
 
-type AuthContext = { 
-    commit: (arg0: string, arg1?: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData> | undefined) => void; 
-}
+type AuthContext = {
+  commit: (
+    arg0: string,
+    arg1?:
+      | firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+      | undefined
+  ) => void;
+};
 
 export {MutationTypes, ActionTypes, oProfile, AuthState, AuthContext};

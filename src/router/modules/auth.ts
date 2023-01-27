@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router';
+import {RouteRecordRaw} from 'vue-router';
 
 import Login from '@/modules/auth/views/Login.vue';
 import Register from '@/modules/auth/views/Register.vue';
