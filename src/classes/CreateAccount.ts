@@ -15,7 +15,6 @@ class CreateAccount {
     }
 
     return this.valid();
-
   }
 
   public checkLastNameValue(value: string) {

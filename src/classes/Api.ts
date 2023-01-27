@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import db from '@/firebase/firebaseinit';
-import { useStorage } from 'vue3-storage';
+import {useStorage} from 'vue3-storage';
 
 const storage = useStorage();
 
@@ -42,9 +42,17 @@ class Api {
     });
   }
 
-  public register(sEmail: string, sPassword: string, sFirstName: string, sLastName: string, sUsername: string) {
+  public register(
+    sEmail: string,
+    sPassword: string,
+    sFirstName: string,
+    sLastName: string,
+    sUsername: string
+  ) {
     return new Promise<void>((resolve, reject) => {
-      firebase.auth().createUserWithEmailAndPassword(sEmail, sPassword)
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(sEmail, sPassword)
         .then((createUser) => {
           const dataBase = db.collection('users').doc(createUser.user!.uid);
           dataBase.set({
@@ -66,7 +74,9 @@ class Api {
 
   public signOut() {
     return new Promise<void>((resolve, reject) => {
-      firebase.auth().signOut()
+      firebase
+        .auth()
+        .signOut()
         .then(() => {
           storage.removeStorageSync('oUser');
           storage.removeStorageSync('oProfile');
@@ -83,55 +93,64 @@ class Api {
 
   public getUser() {
     return new Promise((resolve, reject) => {
-      if (!storage.getStorageSync('oUser') || !storage.getStorageSync('oProfile')) {
-        firebase.auth().onAuthStateChanged(oUser => {
+      if (
+        !storage.getStorageSync('oUser') ||
+        !storage.getStorageSync('oProfile')
+      ) {
+        firebase.auth().onAuthStateChanged((oUser) => {
           if (oUser) {
             const currentUser: any = firebase.auth().currentUser;
             let oProfile: any = {};
 
             const dataBase = db.collection('users').doc(currentUser.uid);
 
-            dataBase.get()
-              .then((dbResults: any) => {
-                oProfile = dbResults.data();
-                oProfile.id = dbResults.id;
-  
-                storage.setStorageSync('oUser', oUser);
-                storage.setStorageSync('oProfile', oProfile);
-                resolve({oUser, oProfile});
-              });
+            dataBase.get().then((dbResults: any) => {
+              oProfile = dbResults.data();
+              oProfile.id = dbResults.id;
+
+              storage.setStorageSync('oUser', oUser);
+              storage.setStorageSync('oProfile', oProfile);
+              resolve({oUser, oProfile});
+            });
           } else {
             reject();
           }
         });
       } else {
-        resolve({ oUser: storage.getStorageSync('oUser'), oProfile: storage.getStorageSync('oProfile')});
+        resolve({
+          oUser: storage.getStorageSync('oUser'),
+          oProfile: storage.getStorageSync('oProfile'),
+        });
       }
     });
   }
 
-  public updateProfile(credentials: {id: string, sFirstName: string, sLastName: string, sUsername: string}) {
+  public updateProfile(credentials: {
+    id: string;
+    sFirstName: string;
+    sLastName: string;
+    sUsername: string;
+  }) {
     return new Promise<void>((resolve, reject) => {
       const dataBase = db.collection('users').doc(credentials.id);
 
-      dataBase.update({
-        firstName: credentials.sFirstName,
-        lastName: credentials.sLastName,
-        username: credentials.sUsername,
-      })
+      dataBase
+        .update({
+          firstName: credentials.sFirstName,
+          lastName: credentials.sLastName,
+          username: credentials.sUsername,
+        })
         .then(() => {
           storage.removeStorageSync('oUser');
           storage.removeStorageSync('oProfile');
 
-          this.getUser()
-            .then((payload: any) => {
-              resolve(payload);
-            });
+          this.getUser().then((payload: any) => {
+            resolve(payload);
+          });
         })
         .catch(() => {
           reject();
         });
-
     });
   }
 }
