@@ -7,9 +7,9 @@
       <div class="links nav__links">
         <div v-show="!bMobileMode" class="list links__list">
           <template v-if="!isEmpty(oProfile)">
-            <router-link class="link list__link" to="#"
-              >Create Post</router-link
-            >
+            <router-link class="link list__link" to="/create-post">
+              Create Post
+            </router-link>
             <div class="profile" @click="showProfileMenu">
               <span class="initials profile__initials">
                 {{ oProfile.initials }}
@@ -19,9 +19,9 @@
           </template>
 
           <template v-else>
-            <router-link class="link list__link" to="/auth/login"
-              >Login / Register</router-link
-            >
+            <router-link class="link list__link" to="/auth/login">
+              Login / Register
+            </router-link>
           </template>
         </div>
       </div>
@@ -47,15 +47,16 @@
 
     <transition name="list-mobile">
       <div v-show="bMobileToggle" class="list-mobile links__list-mobile">
-        <router-link class="link list__link list__link--mobile" to="/"
-          >Home</router-link
-        >
+        <router-link class="link list__link list__link--mobile" to="/">
+          Home
+        </router-link>
         <template v-if="!isEmpty(oProfile)">
           <router-link
             class="link list__link list__link--mobile"
             to="/create-post"
-            >Create Post</router-link
           >
+            Create Post
+          </router-link>
           <button @click="signOut" class="link list__link list__link--mobile">
             Sign Out
           </button>
@@ -64,8 +65,9 @@
           <router-link
             class="link list__link list__link--mobile"
             to="/auth/login"
-            >Login/Register</router-link
           >
+            Login/Register
+          </router-link>
         </template>
       </div>
     </transition>
