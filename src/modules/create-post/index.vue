@@ -19,59 +19,84 @@
         type="file"
         ref="oFile"
         id="photo"
-        @change="handleFile"
+        @change="changeFile"
         accept=".png, .jpg, ,jpeg"
       />
       <p v-show="sPostPhotoName" class="chosen create-post__chosen">
         File Chosen: {{ sPostPhotoName }}
       </p>
     </div>
-    <div
-      class="editor create-post__editor"
-      :style="{
-        background: '#202020',
-        color: '#d2d2d2',
-        'font-weight': '400',
-        'font-size': '14px',
-        'line-height': '21px',
-      }"
-    >
-      <quill-editor id="editor" @ready="createInstance" toolbar="full" />
+    <div class="editor create-post__editor" :style="{color: '#fff'}">
+      <quill-editor
+        ref="oQuillEditor"
+        :options="{placeholder: '', theme: 'snow'}"
+      />
     </div>
     <div class="container create-post__container create-post__actions">
-      <router-link
+      <button
         class="button create-post__button create-post__button--post"
-        to="/login"
+        @click="previewPost"
       >
         Post Preview
-      </router-link>
+      </button>
       <button
         class="button create-post__button create-post__button--publish"
-        @click="uploadBlog"
+        @click="publishPost"
       >
-        Publish Blog
+        Publish to Blog
       </button>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import {QuillEditor} from '@vueup/vue-quill';
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
-
-import {computed, defineComponent, Ref, ref} from 'vue';
+import 'quill/dist/quill.snow.css';
+import {quillEditor} from 'vue3-quill';
+import {useStorage} from 'vue3-storage';
+import {computed, defineComponent, Ref, ref, onMounted} from 'vue';
 import {useStore} from 'vuex';
 import {ActionTypes} from '@/types/createPost';
 
 export default defineComponent({
   components: {
-    QuillEditor,
+    quillEditor,
   },
   setup() {
+    const storage = useStorage();
+
+    const sPostTitle: Ref<object | string> = ref(
+      storage.getStorageSync('sPostTitle') || ''
+    );
+    const sPostContent: Ref<string> = ref('');
+
+    onMounted(() => {
+      sPostContent.value =
+        oQuillEditor.value.editor.firstElementChild.innerHTML =
+          storage.getStorageSync('sPostContent') || '';
+    });
+
+    const oQuillEditor: any = ref(null);
+
+    setInterval(() => {
+      storage.setStorageSync('sPostTitle', sPostTitle.value);
+      storage.setStorageSync(
+        'sPostContent',
+        oQuillEditor.value.editor.firstElementChild.innerHTML
+      );
+    }, 7000);
+
+    function previewPost() {
+      // previewPost logic
+    }
+
+    function publishPost() {
+      // previewPost logic
+    }
+
     const store = useStore();
     const oFile: Ref<any> = ref(null);
 
-    function handleFile() {
+    function changeFile() {
       const oFileUpload = oFile.value.files[0];
       const sFileName = oFileUpload.name;
 
@@ -88,7 +113,13 @@ export default defineComponent({
       ),
 
       oFile,
-      handleFile,
+      changeFile,
+
+      previewPost,
+      publishPost,
+
+      oQuillEditor,
+      sPostTitle,
     };
   },
 });
