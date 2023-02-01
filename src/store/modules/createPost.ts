@@ -9,6 +9,8 @@ const state: AuthState = {
   sPostPhotoFileURL: '',
   sPostTitle: '',
   sPostText: '',
+
+  isShowModalComponent: false,
 };
 
 const mutations = {
@@ -23,6 +25,9 @@ const mutations = {
   },
   [MutationTypes.updatePostContent](state: AuthState, payload: string) {
     state.sPostText = payload;
+  },
+  [MutationTypes.previewPost](state: AuthState, payload: boolean) {
+    state.isShowModalComponent = payload;
   },
 };
 
