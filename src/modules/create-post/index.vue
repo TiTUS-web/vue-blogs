@@ -1,4 +1,5 @@
 <template>
+  <modal-component></modal-component>
   <section class="create-post">
     <input
       class="title create-post__title"
@@ -50,16 +51,19 @@
 </template>
 
 <script lang="ts">
+import ModalComponent from '@/components/ui/modal.vue';
+
 import 'quill/dist/quill.snow.css';
 import {quillEditor} from 'vue3-quill';
 import {useStorage} from 'vue3-storage';
 import {computed, defineComponent, Ref, ref, onMounted} from 'vue';
 import {useStore} from 'vuex';
-import {ActionTypes} from '@/types/createPost';
+import {ActionTypes, MutationTypes} from '@/types/createPost';
 
 export default defineComponent({
   components: {
     quillEditor,
+    ModalComponent,
   },
   setup() {
     const storage = useStorage();
@@ -67,7 +71,9 @@ export default defineComponent({
     const sPostTitle: Ref<object | string> = ref(
       storage.getStorageSync('sPostTitle') || ''
     );
-    const sPostContent: Ref<string> = ref('');
+    const sPostContent: Ref<object | string> = ref(
+      storage.getStorageSync('sPostContent') || ''
+    );
 
     onMounted(() => {
       sPostContent.value =
@@ -86,7 +92,7 @@ export default defineComponent({
     }, 7000);
 
     function previewPost() {
-      // previewPost logic
+      store.commit(MutationTypes.previewPost, true);
     }
 
     function publishPost() {
