@@ -142,16 +142,15 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06);
     padding: 8px;
-    transition: .3s all;
+    transition: 0.3s all;
   }
 }
 
 .menu {
-
   // .menu__line
 
   &__line {
-    border-color: #EBEBEB;
+    border-color: #ebebeb;
   }
 
   // .menu__list
@@ -176,7 +175,6 @@
   &__link {
     color: #fff;
     font-size: 16px;
-
   }
 
   // .menu__button
@@ -185,9 +183,5 @@
     color: #fff;
     font-size: 16px;
     padding: 0;
-
   }
 }
-
-
-

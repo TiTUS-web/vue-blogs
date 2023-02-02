@@ -1,24 +1,21 @@
 // UTILS
-@use "./reset";
-@use "./mixins";
-@use "./variables";
+@use './reset';
+@use './mixins';
+@use './variables';
 // /UTILS
 
-@use "./modules/app";
+@use './modules/app';
 
 // UI
-@use "./modules/ui/header";
-@use "./modules/ui/footer";
-@use "./modules/ui/preloader";
-@use "./modules/ui/modal";
+@use './modules/ui/header';
+@use './modules/ui/footer';
+@use './modules/ui/preloader';
+@use './modules/ui/modal';
 // /UI
 
 // MODULES
-@use "./modules/auth/auth";
-@use "./modules/home/home";
-@use "./modules/settings/settings";
-@use "./modules/create-post/create-post";
+@use './modules/auth/auth';
+@use './modules/home/home';
+@use './modules/settings/settings';
+@use './modules/create-post/create-post';
 // /MODULES
-
-
-
