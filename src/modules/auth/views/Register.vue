@@ -1,117 +1,3 @@
-<template>
-  <form class="register">
-    <h2 class="title register__title">Create Your Blog Account</h2>
-
-    <div class="container register__container">
-      <div class="block firstname__block">
-        <input
-          class="input register__input register__input--firstname"
-          type="text"
-          v-model="sFirstName"
-          placeholder="First Name"
-          name="firstname"
-          required
-        />
-      </div>
-      <div class="block lastname__block">
-        <input
-          class="input register__input register__input--lastname"
-          type="text"
-          v-model="sLastName"
-          placeholder="Last Name"
-          name="lastname"
-        />
-      </div>
-      <div class="block username__block">
-        <input
-          class="input register__input register__input--username"
-          type="text"
-          v-model="sUsername"
-          placeholder="Username"
-          name="username"
-        />
-      </div>
-      <div class="block email__block">
-        <input
-          class="input register__input register__input--email"
-          type="text"
-          v-model="sEmail"
-          placeholder="Email"
-          name="email"
-        />
-      </div>
-      <div class="block password__block">
-        <input
-          class="input register__input register__input--password"
-          type="password"
-          v-model="sPassword"
-          placeholder="Password"
-          name="password"
-        />
-
-        <img
-          class="icon-hide"
-          :class="{'icon-hide--active': !isPasswordHide}"
-          @click="toggleViewPassword"
-          src="@/assets/icons/password--hide.svg"
-          alt="password--hide"
-        />
-      </div>
-      <div class="block repeat__block">
-        <input
-          class="input register__input register__input--repeat"
-          type="password"
-          v-model="sRepeatPassword"
-          placeholder="Repeat Password"
-          name="repeat"
-        />
-
-        <img
-          class="icon-hide"
-          :class="{'icon-hide--active': !isPasswordRepeatHide}"
-          @click="toggleViewPasswordRepeat"
-          src="@/assets/icons/password--hide.svg"
-          alt="repeat--hide"
-        />
-      </div>
-    </div>
-
-    <p v-if="sErrorMessageFirstName" class="error register__error">
-      {{ sErrorMessageFirstName }}
-    </p>
-    <p v-if="sErrorMessageLastName" class="error register__error">
-      {{ sErrorMessageLastName }}
-    </p>
-    <p v-if="sErrorMessageUsername" class="error register__error">
-      {{ sErrorMessageUsername }}
-    </p>
-    <p v-if="sErrorMessageEmail" class="error register__error">
-      {{ sErrorMessageEmail }}
-    </p>
-    <p v-if="sErrorMessagePassword" class="error register__error">
-      {{ sErrorMessagePassword }}
-    </p>
-    <p v-if="sErrorMessageRepeatPassword" class="error register__error">
-      {{ sErrorMessageRepeatPassword }}
-    </p>
-
-    <p class="text register__text">
-      Already have an account?
-      <router-link to="/auth/login" class="link register__text--link">
-        Sign in
-      </router-link>
-    </p>
-
-    <button
-      @click.prevent="register"
-      :disabled="isRegisterButtonLoading"
-      class="button register__button"
-    >
-      Sign Up
-    </button>
-  </form>
-</template>
-
 <script lang="ts">
 import CreateAccount from '@/classes/CreateAccount';
 import {useStore} from 'vuex';
@@ -129,48 +15,28 @@ export default defineComponent({
     const sUsername: Ref<string | null> = ref(null);
     const sEmail: Ref<string | null> = ref(null);
     const sPassword: Ref<string | null> = ref(null);
-    const sRepeatPassword: Ref<string | null> = ref(null);
 
     let sErrorMessageFirstName: Ref<string> = ref('');
     let sErrorMessageLastName: Ref<string> = ref('');
     let sErrorMessageUsername: Ref<string> = ref('');
     let sErrorMessageEmail: Ref<string> = ref('');
     let sErrorMessagePassword: Ref<string> = ref('');
-    let sErrorMessageRepeatPassword: Ref<string> = ref('');
 
     let isPasswordHide: Ref<boolean> = ref(true);
 
+    const inputPassword = ref(null);
+
     function toggleViewPassword() {
-      const passwordField: Ref<Element | null> = ref(
-        document.querySelector('.register__input--password')
-      );
+      if (!inputPassword.value) return;
 
-      if (!passwordField.value) return;
+      const passwordField: HTMLInputElement = inputPassword.value;
 
-      if (passwordField.value.getAttribute('type') === 'password') {
-        passwordField.value.setAttribute('type', 'text');
+      if (passwordField.getAttribute('type') === 'password') {
+        passwordField.setAttribute('type', 'text');
         isPasswordHide.value = false;
       } else {
-        passwordField.value.setAttribute('type', 'password');
+        passwordField.setAttribute('type', 'password');
         isPasswordHide.value = true;
-      }
-    }
-
-    let isPasswordRepeatHide: Ref<boolean> = ref(true);
-
-    function toggleViewPasswordRepeat() {
-      const passwordRepeatField: Ref<Element | null> = ref(
-        document.querySelector('.register__input--repeat')
-      );
-
-      if (!passwordRepeatField.value) return;
-
-      if (passwordRepeatField.value.getAttribute('type') === 'password') {
-        passwordRepeatField.value.setAttribute('type', 'text');
-        isPasswordRepeatHide.value = false;
-      } else {
-        passwordRepeatField.value.setAttribute('type', 'password');
-        isPasswordRepeatHide.value = true;
       }
     }
 
@@ -181,7 +47,6 @@ export default defineComponent({
       sErrorMessageUsername.value = '';
       sErrorMessageEmail.value = '';
       sErrorMessagePassword.value = '';
-      sErrorMessageRepeatPassword.value = '';
 
       if (!verification.checkFirstNameValue(sFirstName.value as string)) {
         sErrorMessageFirstName.value =
@@ -207,19 +72,7 @@ export default defineComponent({
       }
 
       if (!verification.checkPasswordValue(sPassword.value as string)) {
-        sErrorMessagePassword.value =
-          'The password must be 7 to 15 characters long, containing at least one number and a special character';
-        bCheckError = true;
-      }
-
-      if (
-        !verification.checkPasswordRepeatValue(
-          sPassword.value as string,
-          sRepeatPassword.value as string
-        )
-      ) {
-        sErrorMessageRepeatPassword.value =
-          'The repeat password must be appropriate';
+        sErrorMessagePassword.value = 'The password must be 7 to 15 characters long, containing at least one number and a special character';
         bCheckError = true;
       }
 
@@ -254,22 +107,103 @@ export default defineComponent({
       sUsername,
       sEmail,
       sPassword,
-      sRepeatPassword,
 
       sErrorMessageFirstName,
       sErrorMessageLastName,
       sErrorMessageUsername,
       sErrorMessageEmail,
       sErrorMessagePassword,
-      sErrorMessageRepeatPassword,
 
       isPasswordHide,
-      isPasswordRepeatHide,
 
       register,
       toggleViewPassword,
-      toggleViewPasswordRepeat,
+
+      inputPassword
     };
   },
 });
 </script>
+
+<template>
+  <section class="register">
+      <form class="register-form">
+
+        <h2 class="title register-form__title">Создайте свой аккаунт</h2>
+        <p class="subtitle login-form__subtitle">Пожалуйста, введите свои данные для регистрации в системе</p>
+
+        <div class="container register-form__container">
+            <div class="block firstname__block">
+                <input 
+                  class="input register-form__input register-form__input--firstname" 
+                  type="text"
+                  v-model="sFirstName" 
+                  placeholder="Имя" 
+                  name="firstname" 
+                  required
+                />
+            </div>
+            <div class="block lastname__block">
+                <input 
+                  class="input register-form__input register-form__input--lastname" 
+                  type="text"
+                  v-model="sLastName" 
+                  placeholder="Фамилия" 
+                  name="lastname" 
+                />
+            </div>
+            <div class="block username__block">
+                <input 
+                  class="input register-form__input register-form__input--username" 
+                  type="text"
+                  v-model="sUsername" 
+                  placeholder="Имя пользователя" 
+                  name="username" 
+                />
+            </div>
+            <div class="block email__block">
+                <input 
+                  class="input register-form__input register-form__input--email" 
+                  type="text"
+                  v-model="sEmail" 
+                  placeholder="Email" 
+                  name="email" 
+                />
+            </div>
+            <div class="block password__block">
+                <input 
+                  ref="inputPassword"
+                  class="input register-form__input register-form__input--password" 
+                  type="password"
+                  v-model="sPassword" 
+                  placeholder="Пароль" 
+                  name="password" 
+                />
+
+                <img 
+                  class="icon-hide" 
+                  :class="{'icon-hide--active': !isPasswordHide}" 
+                  @click="toggleViewPassword"
+                  src="@/assets/icons/password--hide.svg" 
+                  alt="password--hide"
+                >
+            </div>
+        </div>
+
+        <p v-if="sErrorMessageFirstName" class="error register-form__error">{{ sErrorMessageFirstName }}</p>
+        <p v-if="sErrorMessageLastName" class="error register-form__error">{{ sErrorMessageLastName }}</p>
+        <p v-if="sErrorMessageUsername" class="error register-form__error">{{ sErrorMessageUsername }}</p>
+        <p v-if="sErrorMessageEmail" class="error register-form__error">{{ sErrorMessageEmail }}</p>
+        <p v-if="sErrorMessagePassword" class="error register-form__error">{{ sErrorMessagePassword }}</p>
+        
+        <button @click.prevent="register" :disabled="isRegisterButtonLoading" class="button register-form__button">Зарегистрироваться</button>
+
+        <p class="text register-form__text">
+          Уже есть аккаунт ?
+          <router-link to="/auth/login" class="link register-form__text--link">
+            Войти
+          </router-link> 
+        </p>
+    </form>
+  </section>
+</template>

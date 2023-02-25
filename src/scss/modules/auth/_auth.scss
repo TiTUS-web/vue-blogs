@@ -1,6 +1,4 @@
-@use './components/login';
-@use './components/recover';
-@use './components/register';
+@import "../../variables";
 
 .icon-hide {
   margin-right: 10px;
@@ -14,21 +12,133 @@
 @each $name in 'login' 'register' 'recover' {
   .#{$name} {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     flex: 1;
-    align-self: center;
+    background: url("@/assets/auth-background.png");
+    background-repeat: no-repeat;
+    background-position: center left;
+
+    @media screen and (max-width: 1024px) {
+      justify-content: center;
+      background: none;
+    }
+  }
+
+  .#{$name}-form {
+    & {
+      background: $color-primary;
+      padding: 84px;
+      box-shadow: 0px 24px 38px rgba(47, 53, 57, 0.03),
+        0px 9px 46px rgba(71, 116, 138, 0.02),
+        0px 11px 15px rgba(95, 137, 158, 0.04);
+      border-radius: 28px;
+
+      @media screen and (max-width: 700px) {
+        padding: 50px;
+      }
+    }
+
+    &__title {
+      text-align: center;
+      font-size: 32px;
+      color: $color-text;
+      margin-bottom: 20px;
+
+      @media screen and (max-width: 700px) {
+        font-size: 24px;
+      }
+    }
+
+    &__subtitle {
+      text-align: center;
+      margin-bottom: 70px;
+      color: #6b6e85;
+      text-align: center;
+    }
+
+    &__error {
+      width: 480px;
+      text-decoration: none;
+      color: $color-danger;
+      font-size: 14px;
+      margin: 16px 0 32px;
+      border-bottom: 1px solid transparent;
+      transition: all 0.5s ease;
+      margin: 0;
+      text-align: center;
+
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+    }
+
+    &__text {
+      text-decoration: none;
+      color: $color-text;
+      font-size: 14px;
+      line-height: 18px;
+      margin: 16px 0 32px;
+      border-bottom: 1px solid transparent;
+      transition: all 0.5s ease;
+      margin: 0;
+      text-align: center;
+
+      &--link {
+        color: $color-text;
+        font-weight: bold;
+      }
+
+      &:first-child {
+        margin-top: 15px;
+      }
+
+      &:not(:first-child) {
+        margin-top: 20px;
+      }
+    }
+
+    &__container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__input {
+      outline: none;
+      border: none;
+      background-color: #f2f7f6;
+      padding: 4px 4px 4px 30px;
+      padding: 16px;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    &__button {
+      transition: all 0.5s ease;
+      cursor: pointer;
+      margin: 24px 0 120px;
+      padding: 12px 24px;
+      background: $color-secondary;
+      color: $color-primary;
+      border-radius: 10px;
+      border: none;
+      text-transform: uppercase;
+      width: 100%;
+
+      @media screen and (max-width: 700px) {
+        margin: 24px 0 70px;
+      }
+    }
   }
 }
 
-@each $name in 'email' 'password' 'firstname' 'lastname' 'repeat' 'username' {
+@each $name in "email" "password" "firstname" "lastname" "username" {
   .#{$name}__block {
     background-color: #f2f7f6;
     border-radius: 10px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    width: 260px;
   }
 }

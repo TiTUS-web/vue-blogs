@@ -1,63 +1,3 @@
-<template>
-  <form class="login" action="#">
-    <h2 class="title login__title">Login to VueBlogs</h2>
-
-    <div class="container login__container">
-      <div class="block email__block">
-        <input
-          class="input login__input login__input--email"
-          type="text"
-          v-model="sEmail"
-          placeholder="Email"
-          name="email"
-        />
-      </div>
-      <div class="block password__block">
-        <input
-          class="input login__input login__input--password"
-          type="password"
-          v-model="sPassword"
-          placeholder="Password"
-          name="password"
-        />
-
-        <img
-          @click="toggleViewPassword"
-          :class="{'icon-hide--active': !isPasswordHide}"
-          class="icon-hide"
-          src="@/assets/icons/password--hide.svg"
-          alt="password--hide"
-        />
-      </div>
-    </div>
-
-    <p v-if="sErrorMessageLogin" class="error login__error">
-      {{ sErrorMessageLogin }}
-    </p>
-
-    <p class="text login__text">
-      <router-link to="/auth/recover" class="link login__text--link">
-        Forgot your password?
-      </router-link>
-    </p>
-    <p class="text login__text">
-      Don't have an account?
-      <router-link to="/auth/register" class="link login__text--link">
-        Register
-      </router-link>
-    </p>
-
-    <button
-      @click.prevent="login"
-      :disabled="isLoginButtonLoading"
-      class="button login__button"
-      type="submit"
-    >
-      Sign In
-    </button>
-  </form>
-</template>
-
 <script lang="ts">
 import {computed, defineComponent, ref, Ref} from 'vue';
 import {useStore} from 'vuex';
@@ -72,18 +12,18 @@ export default defineComponent({
 
     let isPasswordHide: Ref<boolean> = ref(true);
 
+    const inputPassword = ref(null);
+
     function toggleViewPassword() {
-      const passwordField: Ref<Element | null> = ref(
-        document.querySelector('.login__input--password')
-      );
+      if (!inputPassword.value) return;
 
-      if (!passwordField.value) return;
+      const passwordField: HTMLInputElement = inputPassword.value;
 
-      if (passwordField.value.getAttribute('type') === 'password') {
-        passwordField.value.setAttribute('type', 'text');
+      if (passwordField.getAttribute('type') === 'password') {
+        passwordField.setAttribute('type', 'text');
         isPasswordHide.value = false;
       } else {
-        passwordField.value.setAttribute('type', 'password');
+        passwordField.setAttribute('type', 'password');
         isPasswordHide.value = true;
       }
     }
@@ -110,7 +50,66 @@ export default defineComponent({
 
       login,
       toggleViewPassword,
+
+      inputPassword
     };
   },
 });
 </script>
+
+<template>
+  <section class="login">
+      <form class="login-form">
+
+          <h2 class="title login-form__title">Добро пожаловать !</h2>
+          <p class="subtitle login-form__subtitle">Пожалуйста, введите свой e-mail и пароль для входа в систему</p>
+
+          <div class="container login-form__container">
+              <div class="block email__block">
+                  <input 
+                    class="input login-form__input login-form__input--email" 
+                    type="text" 
+                    v-model="sEmail" 
+                    placeholder="Email" 
+                    name="email" 
+                  />
+              </div>
+              <div class="block password__block">
+                  <input 
+                    class="input login-form__input login-form__input--password"
+                    ref="inputPassword"
+                    type="password" 
+                    v-model="sPassword" 
+                    placeholder="Пароль" 
+                    name="password" 
+                  />
+
+                  <img
+                    @click="toggleViewPassword" 
+                    :class="{'icon-hide--active': !isPasswordHide}"
+                    class="icon-hide" 
+                    src="@/assets/icons/password--hide.svg" 
+                    alt="password--hide"
+                  >
+              </div>
+          </div>
+
+          <p v-if="sErrorMessageLogin" class="error login-form__error">{{ sErrorMessageLogin }}</p>
+
+
+          <button @click.prevent="login" :disabled="isLoginButtonLoading" class="button login-form__button" type="submit">Войти</button>
+
+          <p class="text login-form__text">
+            <router-link to="/auth/recover" class="link login-form__text--link">
+              Забыли пароль ?
+            </router-link>
+          </p>
+
+          <p class="text login-form__text">У вас нет аккаунта ?
+            <router-link to="/auth/register" class="link login-form__text--link">
+              Регистрация
+            </router-link>
+          </p>
+      </form>
+  </section>
+</template>

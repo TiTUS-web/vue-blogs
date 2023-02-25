@@ -50,14 +50,6 @@ export default defineComponent({
 <template>
     <header class="header">
         <nav class="nav header__nav">
-            <div class="branding nav__branding">
-                <router-link 
-                  class="link branding__link" 
-                  to="/"  
-                >
-                  TiTUS_Blogs
-                </router-link>
-            </div>
             <div class="list nav__list" v-show="!bMobileMode">
                 <router-link class="link list__link" to="/">Главная</router-link>
                 <router-link class="link list__link" to="/">Поиск</router-link>
