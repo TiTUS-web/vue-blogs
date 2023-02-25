@@ -1,6 +1,8 @@
+@import "../../variables";
+
 .header {
   & {
-    background-color: #202020;
+    background-color: $color-primary;
     padding: 0 25px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.6);
@@ -15,6 +17,8 @@
 .nav {
   & {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 25px 0;
   }
 
@@ -50,7 +54,7 @@
       flex-direction: column;
       position: fixed;
       height: 100%;
-      background-color: #202020;
+      background-color: $color-primary;
       top: 0;
       left: 0;
     }
@@ -59,21 +63,28 @@
   // .list__link
 
   &__link {
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
     padding: 0 8px;
     transition: 0.3s color ease;
-    text-transform: uppercase;
     padding: 15px 0;
-    color: #fff;
-    font-size: 18px;
-    text-align: start;
+    color: $color-text;
+
+    &:hover {
+      color: $color-secondary;
+    }
+
+    &--danger {
+      color: $color-danger;
+
+      &:hover {
+        color: $color-danger;
+      }
+    }
 
     &:not(:last-child) {
       margin-right: 32px;
-    }
-
-    &:hover {
-      color: #1eb8b8;
     }
   }
 }
@@ -84,13 +95,9 @@
     font-size: 22px;
     font-weight: 600;
     font-size: 24px;
-    color: #fff;
+    color: $color-secondary;
     text-decoration: none;
     transition: 0.2s;
-
-    &:hover {
-      color: #1eb8b8;
-    }
   }
 }
 
@@ -115,73 +122,4 @@
 
 .list-mobile-leave-to {
   transform: translateX(-350px);
-}
-
-.profile {
-  position: relative;
-  border-radius: 50%;
-  background: #181818;
-  padding: 13px 12px;
-  cursor: pointer;
-
-  // .profile__initials
-
-  &__initials {
-    color: #fff;
-  }
-
-  // .profile__menu
-
-  &__menu {
-    position: absolute;
-    top: 45px;
-    border-radius: 8px 0px 20px 8px;
-    right: 0;
-    width: 150px;
-    background-color: #303030;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    padding: 8px;
-    transition: 0.3s all;
-  }
-}
-
-.menu {
-  // .menu__line
-
-  &__line {
-    border-color: #ebebeb;
-  }
-
-  // .menu__list
-
-  &__list {
-    display: block;
-    margin: 0;
-  }
-
-  // .menu__item
-
-  &__item {
-    display: block;
-
-    &:not(:last-child) {
-      margin-bottom: 10px;
-    }
-  }
-
-  // .menu__link
-
-  &__link {
-    color: #fff;
-    font-size: 16px;
-  }
-
-  // .menu__button
-
-  &__button {
-    color: #fff;
-    font-size: 16px;
-    padding: 0;
-  }
 }
