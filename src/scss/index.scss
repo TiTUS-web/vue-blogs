@@ -1,7 +1,6 @@
 // UTILS
 @use "./reset";
 @use "./mixins";
-@use "./variables";
 // /UTILS
 
 @use "./modules/app";
@@ -17,6 +16,3 @@
 @use "./modules/home/home";
 @use "./modules/settings/settings";
 // /MODULES
-
-
-
