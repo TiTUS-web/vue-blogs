@@ -1,0 +1,94 @@
+.modal {
+  & {
+    background: #202020;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    z-index: 1;
+    padding-top: 105px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  // .modal__content
+
+  &__content {
+    position: relative;
+    background: #202020;
+    margin: auto;
+    padding: 0;
+    width: 780px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animationTop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animationTop;
+    animation-duration: 0.4s;
+  }
+
+  // .modal__header
+
+  &__header {
+    padding: 2px 16px;
+    background-color: #9c27b0;
+    color: white;
+  }
+
+  // .modal__close
+
+  &__close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+
+    &:hover,
+    &:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+
+  // .modal__body
+
+  &__body {
+    padding: 2px 16px;
+  }
+
+  // .modal__footer
+
+  &__footer {
+    padding: 2px 16px;
+    background-color: #9c27b0;
+    color: white;
+  }
+}
+
+@-webkit-keyframes animationTop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animationTop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}

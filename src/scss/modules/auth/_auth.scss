@@ -1,6 +1,6 @@
-@use "./components/login";
-@use "./components/recover";
-@use "./components/register";
+@use './components/login';
+@use './components/recover';
+@use './components/register';
 
 .icon-hide {
   margin-right: 10px;
@@ -11,7 +11,7 @@
   filter: contrast(100);
 }
 
-@each $name in "login" "register" "recover" {
+@each $name in 'login' 'register' 'recover' {
   .#{$name} {
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
   }
 }
 
-@each $name in "email" "password" "firstname" "lastname" "repeat" "username" {
+@each $name in 'email' 'password' 'firstname' 'lastname' 'repeat' 'username' {
   .#{$name}__block {
     background-color: #f2f7f6;
     border-radius: 10px;
