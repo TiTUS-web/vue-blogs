@@ -4,7 +4,7 @@ import { computed, defineComponent, ref, Ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
-  name: 'HeaderNavigation',
+  name: 'Header',
  
   setup() {
     const store = useStore();
