@@ -1,30 +1,25 @@
-<template>
-  <section class="home">
-    <new-post v-if="!isEmpty(oProfile)" />
-    <list-posts />
-  </section>
-</template>
-
 <script lang="ts">
-import NewPost from '@/modules/home/components/NewPost.vue';
-import ListPosts from '@/modules/home/components/ListPosts.vue';
-import isEmpty from '@/utils/isEmpty';
+import Posts from '@/modules/home/components/Posts.vue';
+import Popular from '@/modules/home/components/Popular.vue';
 
-import {computed, defineComponent} from 'vue';
-import {useStore} from 'vuex';
+import {defineComponent} from 'vue';
 
 export default defineComponent({
   components: {
-    NewPost,
-    ListPosts,
+    Posts,
+    Popular,
   },
   setup() {
-    const store = useStore();
-
-    return {
-      oProfile: computed(() => store.state.auth.oProfile),
-      isEmpty,
-    };
+    return {};
   },
 });
 </script>
+
+<template>
+  <section class="home">
+    <div class="content home__content">
+      <posts />
+    </div>
+    <popular />
+  </section>
+</template>

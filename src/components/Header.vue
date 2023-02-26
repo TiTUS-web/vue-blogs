@@ -4,7 +4,7 @@ import { computed, defineComponent, ref, Ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
-  name: 'HeaderNavigation',
+  name: 'Header',
  
   setup() {
     const store = useStore();
@@ -52,9 +52,9 @@ export default defineComponent({
         <nav class="nav header__nav">
             <div class="list nav__list" v-show="!bMobileMode">
                 <router-link class="link list__link" to="/">Главная</router-link>
-                <router-link class="link list__link" to="/">Поиск</router-link>
-                <router-link class="link list__link" to="/">Создать пост</router-link>
-                <router-link class="link list__link" to="/">Войти / Регистрация</router-link>
+                <router-link class="link list__link" to="/search">Поиск</router-link>
+                <router-link class="link list__link" to="/create-post">Создать пост</router-link>
+                <router-link class="link list__link" to="/auth/login">Войти / Регистрация</router-link>
             </div>
         </nav>
 
@@ -66,8 +66,8 @@ export default defineComponent({
         <transition name="list-mobile">
             <div v-show="bMobileToggle" class="list-mobile links__list-mobile">
                 <router-link class="link list__link list__link--mobile" to="/">Главная</router-link>
-                <router-link class="link list__link list__link--mobile" to="#">Поиск</router-link>
-                <router-link class="link list__link list__link--mobile" to="#">Создать пост</router-link>
+                <router-link class="link list__link list__link--mobile" to="/search">Поиск</router-link>
+                <router-link class="link list__link list__link--mobile" to="/create-post">Создать пост</router-link>
                 <router-link class="link list__link list__link--mobile" to="/auth/login">Войти / Регистрация</router-link>
             </div>
         </transition>

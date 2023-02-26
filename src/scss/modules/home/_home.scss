@@ -1,14 +1,17 @@
-@use './components/post';
-@use './components/new-post';
+@use './components/posts';
+@use './components/popular';
 
-.content {
-  &__component {
-    width: 100%;
-    display: flex;
+.home {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (max-width: 1024px) {
+    justify-content: initial;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    align-self: center;
+  }
+
+  &__content {
+    max-width: 1040px;
   }
 }

@@ -1,26 +1,26 @@
 <template>
-  <header-navigation />
+  <Header />
 
   <main class="content app__content">
     <router-view />
   </main>
 
-  <footer-navigation />
+  <Footer />
 </template>
 
 <script lang="ts">
-import HeaderNavigation from '@/components/HeaderNavigation.vue';
-import FooterNavigation from '@/components/FooterNavigation.vue';
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 
 import {useStore} from 'vuex';
 import {defineComponent} from 'vue';
 import {ActionTypes} from '@/types/auth';
 
 export default defineComponent({
-  name: 'VueBlogs',
+  name: 'TiTUS_Blog',
   components: {
-    HeaderNavigation,
-    FooterNavigation,
+    Header,
+    Footer,
   },
   setup() {
     const store = useStore();
