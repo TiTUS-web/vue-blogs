@@ -1,4 +1,4 @@
-@import "../../variables";
+@import '../../variables';
 
 .header {
   & {
@@ -57,6 +57,8 @@
     transition: 0.3s color ease;
     padding: 15px 0;
     color: $color-text;
+    border-bottom: 1px solid $color-subtitle;
+    width: 100%;
 
     &:hover {
       color: $color-secondary;
