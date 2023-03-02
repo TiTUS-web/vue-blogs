@@ -57,8 +57,11 @@
     transition: 0.3s color ease;
     padding: 15px 0;
     color: $color-text;
-    border-bottom: 1px solid $color-subtitle;
-    width: 100%;
+
+    @media screen and (max-width: 750px) {
+      width: 100%;
+      border-bottom: 1px solid $color-subtitle;
+    }
 
     &:hover {
       color: $color-secondary;
