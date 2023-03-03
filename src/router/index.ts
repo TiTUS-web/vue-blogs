@@ -5,6 +5,7 @@ import HomeRoutes from '@/router/modules/home';
 import SettingsRoutes from '@/router/modules/settings';
 import CreatePostRoutes from '@/router/modules/createPost';
 import SearchRoutes from '@/router/modules/search';
+import NotFoundRoutes from '@/router/modules/not_found';
 
 const routes: Array<RouteRecordRaw> = [
   ...AuthRoutes,
@@ -12,6 +13,7 @@ const routes: Array<RouteRecordRaw> = [
   ...SettingsRoutes,
   ...CreatePostRoutes,
   ...SearchRoutes,
+  ...NotFoundRoutes,
 ];
 
 const router = createRouter({
