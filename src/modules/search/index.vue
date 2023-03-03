@@ -1,6 +1,6 @@
 <script lang="ts">
 import Search from '@/components/ui/Search.vue';
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 
 export default defineComponent({
   components: {
@@ -10,10 +10,9 @@ export default defineComponent({
     return {};
   }
 });
-    
 </script>
 
 <template>
-    <Search />
+  <Search />
 </template>
 
