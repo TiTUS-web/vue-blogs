@@ -1,0 +1,16 @@
+@import '../../../variables';
+
+.category {
+  // .category__promo
+  &__promo {
+    max-width: 100%;
+    background: rgba(93, 113, 221, 0.05);
+    font-weight: 450;
+    font-size: 30px;
+    line-height: 38px;
+    text-align: center;
+    color: $color-secondary;
+    padding: 71px 0;
+    margin-bottom: 40px;
+  }
+}
