@@ -1,4 +1,3 @@
-<link href="../../../scss/modules/home/components/_popular.scss" rel="stylesheet">
 <script lang="ts">
 import {defineComponent} from 'vue';
 
