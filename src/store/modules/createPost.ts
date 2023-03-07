@@ -1,8 +1,4 @@
-import Api from '@/classes/Api';
-
-const $Api = new Api();
-
-import {MutationTypes, ActionTypes, AuthState} from '@/types/createPost';
+import {ActionTypes, AuthState, MutationTypes} from '@/types/createPost';
 
 const state: AuthState = {
   sPostPhotoName: '',
